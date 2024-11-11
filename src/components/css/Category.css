@@ -1,0 +1,21 @@
+.category-section {
+    margin: 20px 0;
+}
+
+.category-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.brands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+@media (max-width: 600px) {
+    .brands-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+    }
+}

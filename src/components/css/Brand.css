@@ -1,0 +1,25 @@
+.brand-card {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fafafa;
+    transition: transform 0.2s;
+}
+
+.brand-card:hover {
+    transform: scale(1.05);
+}
+
+.brand-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.brand-card p {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #555;
+}

@@ -1,0 +1,20 @@
+.home {
+    padding: 20px;
+}
+
+.main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 600px) {
+    .home {
+        padding: 10px;
+    }
+
+    .main-image {
+        margin-bottom: 20px;
+    }
+}
