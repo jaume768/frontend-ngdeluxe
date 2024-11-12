@@ -1,41 +1,33 @@
-.register-container {
+.profile-container {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
 }
 
-.register-form {
+.profile-card {
     background-color: #fff;
     padding: 30px 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.register-form h2 {
+.profile-card h2 {
     margin-bottom: 20px;
     text-align: center;
     color: #333;
 }
 
-.register-form .error {
-    color: red;
+.profile-card p {
+    font-size: 1em;
     margin-bottom: 10px;
-    text-align: center;
+    color: #555;
 }
 
-.register-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.register-form button {
+.profile-card button {
     width: 100%;
     padding: 10px;
     background-color: #333;
@@ -45,31 +37,16 @@
     cursor: pointer;
 }
 
-.register-form button:hover {
+.profile-card button:hover {
     background-color: #555;
 }
 
-.toggle-auth {
-    text-align: center;
-    margin-top: 10px;
-    color: #555;
-}
-
-.toggle-auth a {
-    color: #333;
-    text-decoration: none;
-}
-
-.toggle-auth a:hover {
-    text-decoration: underline;
-}
-
 @media (max-width: 600px) {
-    .register-form {
+    .profile-card {
         padding: 20px 15px;
     }
 
-    .register-form h2 {
+    .profile-card h2 {
         font-size: 1.2em;
     }
 }

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './css/Login.css';
 
 const Login = () => {
@@ -41,6 +41,9 @@ const Login = () => {
                     required
                 />
                 <button type="submit">Entrar</button>
+                <p className="toggle-auth">
+                    <Link to="/register"> ¿No tienes cuenta? Regístrate</Link>
+                </p>
             </form>
         </div>
     );

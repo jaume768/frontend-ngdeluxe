@@ -5,6 +5,10 @@
     background-color: #333;
     padding: 10px 20px;
     flex-wrap: wrap;
+    position: relative;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .navbar-brand a {
@@ -27,32 +31,124 @@
     font-size: 1em;
 }
 
-.navbar-links button {
+.navbar-links .signin-button {
     background-color: #555;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
+    padding: 8px 12px;
+    border-radius: 4px;
 }
 
-.navbar-links button:hover {
+.navbar-links .signin-button:hover {
     background-color: #777;
 }
 
+.navbar-links .logout-button {
+    background-color: #555;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.navbar-links .logout-button:hover {
+    background-color: #777;
+}
+
+.greeting {
+    margin-left: 0;
+    margin-right: 15px;
+}
+
+.mobile-menu-icon {
+    display: none;
+    cursor: pointer;
+    /* Posicionamiento absoluto para mantener el ícono en la esquina superior derecha */
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 1001; /* Asegura que el ícono esté por encima del menú */
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+    margin-right: 20px;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    display: block;
+    transition: all 0.3s ease-in-out;
+    border-radius: 2px;
+    position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+}
+
+.hamburger::before {
+    top: -8px;
+}
+
+.hamburger::after {
+    top: 8px;
+}
+
+.hamburger.open {
+    background-color: transparent;
+}
+
+.hamburger.open::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.hamburger.open::after {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
 @media (max-width: 600px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
+
+    .navbar{
+        width: 100%;
     }
 
     .navbar-links {
         flex-direction: column;
         width: 100%;
+        display: none;
+        background-color: #333;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        padding: 10px 0;
+    }
+
+    .navbar-links .signin-button {
+        width: 200px;
+    }
+
+    .navbar-links.active {
+        display: flex;
     }
 
     .navbar-links a,
     .navbar-links span,
     .navbar-links button {
-        margin: 5px 0;
+        margin: 10px 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    .greeting {
+        margin-left: 0;
+        margin-right: 0;
     }
 }

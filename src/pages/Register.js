@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './css/Register.css';
 
 const Register = () => {
@@ -49,6 +49,9 @@ const Register = () => {
                     required
                 />
                 <button type="submit">Crear Cuenta</button>
+                <p className="toggle-auth">
+                    <Link to="/login">¿Ya tienes una cuenta? Inicia Sesión</Link>
+                </p>
             </form>
         </div>
     );

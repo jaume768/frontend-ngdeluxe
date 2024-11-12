@@ -49,6 +49,21 @@
     background-color: #555;
 }
 
+.toggle-auth {
+    text-align: center;
+    margin-top: 10px;
+    color: #555;
+}
+
+.toggle-auth a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toggle-auth a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 600px) {
     .login-form {
         padding: 20px 15px;
