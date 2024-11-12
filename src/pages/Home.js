@@ -1,10 +1,10 @@
-// src/pages/Home.js
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 import Category from '../components/Category';
+import TiendaComponent from '../components/TiendaComponent';
 import './css/Home.css';
 import Slider from "react-slick"; // Importa Slider de react-slick
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Home = () => {
@@ -16,7 +16,6 @@ const Home = () => {
             try {
                 const res = await api.get('/categories');
                 setCategorias(res.data);
-                console.log('Categorías:', res.data);
             } catch (error) {
                 console.error('Error al obtener categorías:', error);
             }
@@ -26,7 +25,6 @@ const Home = () => {
             try {
                 const res = await api.get('/brands');
                 setMarcas(res.data);
-                console.log('Marcas:', res.data);
             } catch (error) {
                 console.error('Error al obtener marcas:', error);
             }
@@ -58,6 +56,9 @@ const Home = () => {
 
     return (
         <div className="home">
+            <div className="home-background">
+                <TiendaComponent />
+            </div>
             <Slider {...settings}>
                 {images.map((image, index) => (
                     <div key={index}>

@@ -5,11 +5,25 @@
     overflow: hidden;
 }
 
+.home-background {
+    position: relative;
+    width: 100%; /* Ancho completo */
+    height: 300px; /* Largo específico */
+    background-image: url('https://xcimg.szwego.com/img/3a1a816b/20240326/i1711455352_4987_0.jpg');
+    background-size: cover; /* Ajusta la imagen para cubrir el contenedor */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita repetir la imagen */
+    margin-bottom: 20px; /* Espaciado opcional para separar del resto */
+}
+
+
 .carousel-image {
     z-index: 0;
-    width: 100%;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
     height: auto;
-    transform: scale(1.05);
+    transform: scale(1.2);
     transition: transform 0.5s ease;
 }
 
@@ -17,12 +31,26 @@
     overflow: hidden;
 }
 
-.carousel-image:hover {
-    transform: scale(1.1);
+.image-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 @media (max-width: 600px) {
     .home {
         padding: 10px;
+    }
+
+    .carousel-image {
+        width: 100%;
     }
 }

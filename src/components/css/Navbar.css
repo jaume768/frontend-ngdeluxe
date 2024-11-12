@@ -98,7 +98,7 @@ body {
     display: none;
     cursor: pointer;
     position: absolute;
-    top: 20px;
+    top: 35px;
     right: 30px;
     z-index: 1001;
 }
