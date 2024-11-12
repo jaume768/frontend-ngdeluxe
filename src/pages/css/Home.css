@@ -2,24 +2,27 @@
     padding: 20px;
     box-sizing: border-box;
     width: 100%;
+    overflow: hidden;
 }
 
-.main-image {
-    display: block;
-    margin: 0 auto;
-    width: 30%;
+.carousel-image {
+    z-index: 0;
+    width: 100%;
     height: auto;
-    border-radius: 8px;
-    margin-bottom: 30px;
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+}
+
+.slick-slide {
+    overflow: hidden;
+}
+
+.carousel-image:hover {
+    transform: scale(1.1);
 }
 
 @media (max-width: 600px) {
     .home {
         padding: 10px;
-    }
-
-    .main-image {
-        width: 100%;
-        margin-bottom: 20px;
     }
 }

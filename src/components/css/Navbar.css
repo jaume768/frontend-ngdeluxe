@@ -1,82 +1,116 @@
+/* Variables de colores para facilitar la personalización */
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #4a90e2;
+    --background-color: #f8f9fa;
+    --hover-color: #e2e6ea;
+    --text-color: #333333;
+    --border-radius: 8px;
+    --transition-speed: 0.3s;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-family);
+}
+
+/* Navbar contenedor */
 .navbar {
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
-    padding: 10px 20px;
-    flex-wrap: wrap;
+    background-color: var(--primary-color);
+    padding: 15px 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: var(--border-radius);
 }
 
+/* Marca de la Navbar */
 .navbar-brand a {
-    color: #fff;
-    font-size: 1.5em;
+    color: var(--secondary-color);
+    font-size: 1.8em;
+    font-weight: bold;
     text-decoration: none;
+    transition: color var(--transition-speed);
 }
 
+.navbar-brand a:hover {
+    color: darken(var(--secondary-color), 10%);
+}
+
+/* Enlaces de la Navbar */
 .navbar-links {
     display: flex;
     align-items: center;
+    transition: all var(--transition-speed);
 }
 
 .navbar-links a,
 .navbar-links span,
 .navbar-links button {
-    color: #fff;
-    margin-left: 15px;
+    color: var(--text-color);
+    margin-left: 20px;
     text-decoration: none;
     font-size: 1em;
+    transition: color var(--transition-speed);
 }
 
-.navbar-links .signin-button {
-    background-color: #555;
-    padding: 8px 12px;
-    border-radius: 4px;
+.navbar-links a:hover,
+.navbar-links button:hover {
+    color: var(--secondary-color);
 }
 
-.navbar-links .signin-button:hover {
-    background-color: #777;
-}
-
+/* Botones de Inicio de Sesión y Cerrar Sesión */
+.navbar-links .signin-button,
 .navbar-links .logout-button {
-    background-color: #555;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 8px 16px;
     border: none;
-    padding: 8px 12px;
+    border-radius: var(--border-radius);
     cursor: pointer;
-    border-radius: 4px;
+    font-size: 0.95em;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
 }
 
+.navbar-links .signin-button:hover,
 .navbar-links .logout-button:hover {
-    background-color: #777;
+    background-color: darken(var(--secondary-color), 10%);
+    transform: translateY(-2px);
 }
 
+/* Saludo al Usuario */
 .greeting {
     margin-left: 0;
-    margin-right: 15px;
+    margin-right: 20px;
+    font-weight: 500;
+    color: var(--text-color);
 }
 
+/* Ícono del Menú Móvil */
 .mobile-menu-icon {
     display: none;
     cursor: pointer;
-    /* Posicionamiento absoluto para mantener el ícono en la esquina superior derecha */
     position: absolute;
-    top: 15px;
-    right: 20px;
-    z-index: 1001; /* Asegura que el ícono esté por encima del menú */
+    top: 20px;
+    right: 30px;
+    z-index: 1001;
 }
 
 .hamburger,
 .hamburger::before,
 .hamburger::after {
-    margin-right: 20px;
     width: 25px;
     height: 3px;
-    background-color: #fff;
+    background-color: var(--text-color);
     display: block;
-    transition: all 0.3s ease-in-out;
+    transition: all var(--transition-speed) ease-in-out;
     border-radius: 2px;
     position: relative;
 }
@@ -110,25 +144,23 @@
     top: 0;
 }
 
-@media (max-width: 600px) {
-
-    .navbar{
-        width: 100%;
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
     }
 
     .navbar-links {
         flex-direction: column;
         width: 100%;
         display: none;
-        background-color: #333;
+        background-color: var(--primary-color);
         position: absolute;
-        top: 50px;
+        top: 60px;
         left: 0;
-        padding: 10px 0;
-    }
-
-    .navbar-links .signin-button {
-        width: 200px;
+        padding: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
     }
 
     .navbar-links.active {
@@ -143,12 +175,17 @@
         width: 100%;
     }
 
+    .navbar-links .signin-button,
+    .navbar-links .logout-button {
+        width: 90%;
+        margin: 10px auto;
+    }
+
     .mobile-menu-icon {
         display: block;
     }
 
     .greeting {
-        margin-left: 0;
-        margin-right: 0;
+        margin: 10px 0;
     }
 }

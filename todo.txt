@@ -1,6 +1,6 @@
 hacer que cuando le des a una marca salga una lista sus productos asociados
 hacer que un producto pueda tener mas de una url de imagen, minimo una
+hacer la parte superior del home, poner otra foto y el logo de ngdeluxe
 hacer que cuando le des a un producto salga una pagina de descripcion (primero todas las fotos pero como un carrusel, el nombre del producto, luego 4 producots randoms de la misma cateogria, luego todas las fotos del producto en columna y luego 4 producots randoms de la misma cateogria)
-modificar el logo del cliente por un carrusel de fotos de tumbler
 hacer que pueda elegir el orden de las categorias que salen en el home (admin)
 hacer el cargar un numero minimo de productos y que vaya cargando haciendo scroll

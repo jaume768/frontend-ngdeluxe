@@ -1,14 +1,9 @@
 *{
   box-sizing: border-box;
-}
-
-.container{
-  margin-right: 300px;
-  margin-left: 300px;
+  overflow: hidden;
 }
 
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
 }
@@ -19,18 +14,4 @@ a {
 
 button {
   font-family: inherit;
-}
-
-@media (max-width: 1200px) { /* Añadir breakpoint intermedio si es necesario */
-  .container{
-    margin-right: 50px;
-    margin-left: 50px;
-  }
-}
-
-@media (max-width: 600px) {
-  .container{
-    margin-right: 0;
-    margin-left: 0;
-  }
 }
