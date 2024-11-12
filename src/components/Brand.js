@@ -4,8 +4,8 @@ import './css/Brand.css';
 const Brand = ({ brand }) => {
     return (
         <div className="brand-card">
-            <img src={brand.fotoUrl} alt={brand.nombre} />
-            <p>{brand.nombre}</p>
+            <img src={brand.fotoUrl} alt={brand.nombre} className="brand-image" />
+            <h3 className="brand-name">{brand.nombre}</h3>
         </div>
     );
 };

@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 .container{
   margin-right: 300px;
   margin-left: 300px;
@@ -15,6 +19,13 @@ a {
 
 button {
   font-family: inherit;
+}
+
+@media (max-width: 1200px) { /* Añadir breakpoint intermedio si es necesario */
+  .container{
+    margin-right: 50px;
+    margin-left: 50px;
+  }
 }
 
 @media (max-width: 600px) {

@@ -1,21 +1,31 @@
 .category-section {
     margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* Centra el texto */
+    width: 100%;
 }
 
-.category-section h2 {
-    margin-bottom: 15px;
-    color: #333;
+.category-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin: 0 auto; /* Centra la imagen */
 }
 
 .brands-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: 15px;
+    margin-top: 20px;
 }
 
-@media (max-width: 600px) {
-    .brands-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 10px;
-    }
+/* Estilos Globales para Imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }

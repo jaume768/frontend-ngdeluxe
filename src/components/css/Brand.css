@@ -1,25 +1,27 @@
 .brand-card {
     text-align: center;
-    border: 1px solid #ddd;
     padding: 10px;
-    border-radius: 5px;
-    background-color: #fafafa;
+    background-color: transparent; /* Elimina el fondo para un diseño limpio */
     transition: transform 0.2s;
-}
-
-.brand-card:hover {
-    transform: scale(1.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente los elementos */
 }
 
 .brand-card img {
-    width: 100%;
-    height: 100px;
+    width: 100%; /* Hace que la imagen ocupe todo el ancho del contenedor */
+    max-width: 100px; /* Establece un ancho máximo para la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
     object-fit: cover;
     border-radius: 5px;
+    margin-bottom: 10px; /* Espacio entre la imagen y el texto */
 }
 
-.brand-card p {
-    margin-top: 10px;
+.brand-name {
+    margin-top: 0; /* Elimina margen superior si es necesario */
     font-weight: bold;
     color: #555;
+    width: 60px;
+    text-align: center; /* Centra el texto */
+    font-size: 1em; /* Ajusta el tamaño de fuente según necesidad */
 }

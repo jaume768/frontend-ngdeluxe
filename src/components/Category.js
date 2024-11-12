@@ -5,7 +5,11 @@ import './css/Category.css';
 const Category = ({ category, brands }) => {
     return (
         <div className="category-section">
-            <h2>{category.nombre}</h2>
+            <img 
+                src={category.fotoUrl} 
+                alt={category.nombre} 
+                className="category-image" 
+            />
             <div className="brands-grid">
                 {brands.map((brand) => (
                     <Brand key={brand._id} brand={brand} />

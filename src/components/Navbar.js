@@ -28,7 +28,6 @@ const Navbar = () => {
                         <span className="greeting">Hola, {usuario.nombre}</span>
                         {usuario.rol === 'admin' && <Link to="/admin">Administración</Link>}
                         <Link to="/perfil">Perfil</Link>
-                        <button onClick={handleLogout} className="logout-button">Cerrar Sesión</button>
                     </>
                 ) : (
                     <Link to="/login" className="signin-button">Iniciar Sesión</Link>

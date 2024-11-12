@@ -1,6 +1,7 @@
 # Dockerfile
-# Usar una imagen de Node para construir la aplicación
-FROM node:18 as build
+
+# Etapa de construcción
+FROM node:18 AS build
 
 # Establecer el directorio de trabajo
 WORKDIR /app
@@ -17,8 +18,11 @@ COPY . .
 # Construir la aplicación para producción
 RUN npm run build
 
-# Usar una imagen de Nginx para servir la aplicación
+# Etapa de producción
 FROM nginx:alpine
+
+# Copiar la configuración personalizada de Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copiar los archivos de construcción al directorio de Nginx
 COPY --from=build /app/build /usr/share/nginx/html

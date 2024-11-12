@@ -12,8 +12,9 @@ const Home = () => {
             try {
                 const res = await api.get('/categories');
                 setCategorias(res.data);
+                console.log('Categorías:', res.data);
             } catch (error) {
-                console.error(error);
+                console.error('Error al obtener categorías:', error);
             }
         };
 
@@ -21,8 +22,9 @@ const Home = () => {
             try {
                 const res = await api.get('/brands');
                 setMarcas(res.data);
+                console.log('Marcas:', res.data);
             } catch (error) {
-                console.error(error);
+                console.error('Error al obtener marcas:', error);
             }
         };
 
@@ -33,13 +35,17 @@ const Home = () => {
     return (
         <div className="home">
             <img src="/assets/main.jpeg" alt="Principal" className="main-image" />
-            {categorias.map((categoria) => (
-                <Category
-                    key={categoria._id}
-                    category={categoria}
-                    brands={marcas.filter(brand => brand.categoria === categoria._id)}
-                />
-            ))}
+            {categorias.map((categoria) => {
+                const marcasDeCategoria = marcas.filter(brand => brand.categoria._id === categoria._id);
+                console.log(`Marcas para la categoría ${categoria.nombre}:`, marcasDeCategoria);
+                return (
+                    <Category
+                        key={categoria._id}
+                        category={categoria}
+                        brands={marcasDeCategoria}
+                    />
+                );
+            })}
         </div>
     );
 };
