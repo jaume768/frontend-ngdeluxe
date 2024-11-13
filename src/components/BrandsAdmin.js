@@ -66,7 +66,7 @@ const BrandsAdmin = () => {
         setEditingBrand(brand);
         setNombre(brand.nombre);
         setFotoUrl(brand.fotoUrl);
-        setCategoria(brand.categoria);
+        setCategoria(brand.categoria ? brand.categoria._id : '');
         setError('');
     };
 
@@ -133,7 +133,7 @@ const BrandsAdmin = () => {
                         <tr key={brand._id}>
                             <td>{brand.nombre}</td>
                             <td><a href={brand.fotoUrl} target="_blank" rel="noopener noreferrer">Ver Imagen</a></td>
-                            <td>{brand.categoria.nombre}</td>
+                            <td>{brand.categoria?.nombre || 'Sin categoría'}</td>
                             <td>
                                 <button onClick={() => handleEdit(brand)}>Editar</button>
                                 <button onClick={() => handleDelete(brand._id)}>Eliminar</button>
