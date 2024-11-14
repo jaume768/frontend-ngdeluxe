@@ -54,6 +54,15 @@
     color: #333;
 }
 
+.product-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-link:hover .product-item {
+    background-color: #f1f1f1;
+}
+
 .loading,
 .error-message {
     text-align: center;
@@ -63,7 +72,7 @@
 
 @media (max-width: 600px) {
     .brand-header {
-        flex-direction: column;
+        flex-direction: center;
         align-items: flex-start;
     }
 

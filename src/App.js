@@ -6,6 +6,7 @@ import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import ProductDescription from './pages/ProductDescription';
 import Register from './pages/Register';
 import Admin from './pages/Admin';
 import Profile from './pages/Profile';
@@ -23,7 +24,8 @@ function App() {
           <Route path="/register" component={Register} />
           <PrivateRoute path="/admin" component={Admin} adminOnly />
           <PrivateRoute path="/perfil" component={Profile} />
-          <Route path="/brands/:id" component={BrandProducts} /> {/* Nueva ruta */}
+          <Route path="/brands/:id" component={BrandProducts} />
+          <Route path="/products/:id" component={ProductDescription} />
           {/* Agrega más rutas según sea necesario */}
         </Switch>
       </Router>

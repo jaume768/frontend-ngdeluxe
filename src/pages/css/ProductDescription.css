@@ -1,0 +1,135 @@
+.product-description-container {
+    padding: 40px 20px;
+    max-width: 1200px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 16px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.product-name {
+    text-align: center;
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.product-carousel {
+    margin-bottom: 40px;
+}
+
+.carousel-image-description {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.related-title {
+    font-size: 24px;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.related-products-list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.related-product-link {
+    text-decoration: none;
+    color: inherit;
+    width: 200px;
+}
+
+.related-product-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.related-product-item:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.related-product-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.related-product-name {
+    font-size: 18px;
+    color: #333;
+}
+
+.images-column-title {
+    font-size: 24px;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.images-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.column-image {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 0 auto;
+}
+
+.loading,
+.error-message {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+
+    .carousel-image-description {
+        height: 100%;
+    }
+
+    .related-products-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .related-product-link {
+        width: calc(50% - 20px);
+        box-sizing: border-box;
+    }
+
+    .column-image {
+        max-width: 100%;
+    }
+}

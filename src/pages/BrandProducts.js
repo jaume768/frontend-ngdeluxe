@@ -47,12 +47,14 @@ const BrandProducts = () => {
             <div className="products-list">
                 {products.length > 0 ? (
                     products.map(product => (
-                        <div key={product._id} className="product-item">
-                            {product.imagenes.length > 0 && (
-                                <img src={product.imagenes[0]} alt={product.nombre} className="product-image" />
-                            )}
-                            <span className="product-name">{product.nombre}</span>
-                        </div>
+                        <Link to={`/products/${product._id}`} key={product._id} className="product-link">
+                            <div className="product-item">
+                                {product.imagenes.length > 0 && (
+                                    <img src={product.imagenes[0]} alt={product.nombre} className="product-image" />
+                                )}
+                                <span className="product-name">{product.nombre}</span>
+                            </div>
+                        </Link>
                     ))
                 ) : (
                     <p>No hay productos disponibles para esta marca.</p>
