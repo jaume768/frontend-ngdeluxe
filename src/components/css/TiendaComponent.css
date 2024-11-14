@@ -14,6 +14,24 @@
     font-family: Arial, sans-serif;
 }
 
+.social-icons {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.social-icon {
+    width:30px;
+    height: 30px;
+    margin-left: 28px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
 .tumbler-content {
     display: flex;
     align-items: center;

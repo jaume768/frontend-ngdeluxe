@@ -1,3 +1,5 @@
+// src/App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
@@ -7,6 +9,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Admin from './pages/Admin';
 import Profile from './pages/Profile';
+import BrandProducts from './pages/BrandProducts';
 import PrivateRoute from './components/PrivateRoute';
 
 function App() {
@@ -20,6 +23,7 @@ function App() {
           <Route path="/register" component={Register} />
           <PrivateRoute path="/admin" component={Admin} adminOnly />
           <PrivateRoute path="/perfil" component={Profile} />
+          <Route path="/brands/:id" component={BrandProducts} /> {/* Nueva ruta */}
           {/* Agrega más rutas según sea necesario */}
         </Switch>
       </Router>

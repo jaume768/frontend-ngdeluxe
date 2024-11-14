@@ -84,7 +84,7 @@ const UsersAdmin = () => {
 
     return (
         <div className="admin-section">
-            <h3>Usuarios</h3>
+            <h3 className='titulo-panel'>Usuarios</h3>
             <form onSubmit={handleSubmit} className="admin-form">
                 <h4>{editingUser ? 'Editar Usuario' : 'Crear Usuario'}</h4>
                 {error && <p className="error">{error}</p>}

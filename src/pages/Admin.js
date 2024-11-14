@@ -22,7 +22,7 @@ const Admin = () => {
 
             <Switch>
                 <Route exact path={path}>
-                    <h3>Selecciona una sección para administrar.</h3>
+                    <h3 className='titulo-panel'>Selecciona una sección para administrar.</h3>
                 </Route>
                 <Route path={`${path}/users`} component={UsersAdmin} />
                 <Route path={`${path}/categories`} component={CategoriesAdmin} />

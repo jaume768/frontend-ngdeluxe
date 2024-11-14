@@ -25,7 +25,6 @@ const CategoriesAdmin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (editingCategory) {
-            // Actualizar categoría
             try {
                 await api.put(`/categories/${editingCategory._id}`, { nombre, fotoUrl });
                 setEditingCategory(null);
@@ -37,7 +36,6 @@ const CategoriesAdmin = () => {
                 setError('Error al actualizar la categoría.');
             }
         } else {
-            // Crear nueva categoría
             try {
                 await api.post('/categories', { nombre, fotoUrl });
                 setNombre('');
@@ -77,7 +75,7 @@ const CategoriesAdmin = () => {
 
     return (
         <div className="admin-section">
-            <h3>Categorías</h3>
+            <h3 className='titulo-panel'>Categorías</h3>
             <form onSubmit={handleSubmit} className="admin-form">
                 <h4>{editingCategory ? 'Editar Categoría' : 'Crear Categoría'}</h4>
                 {error && <p className="error">{error}</p>}

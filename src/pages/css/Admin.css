@@ -1,5 +1,14 @@
-.admin-container {
-    padding: 20px;
+.titulo-panel {
+    text-align: center;
+}
+
+.urls-imagenes{
+    display: flex;
+    gap: 10px;
+}
+.margen-products {
+    display: flex;
+    gap: 10px;
 }
 
 .admin-container h2 {
@@ -78,7 +87,7 @@
 
 .admin-form input,
 .admin-form select {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -97,6 +106,86 @@
 .admin-form button:hover {
     background-color: #555;
 }
+
+.imagen-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.remove-image-button {
+    margin-left: 10px;
+    padding: 8px 12px;
+    border: none;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-image-button:hover {
+    background-color: #c82333;
+}
+
+.add-image-button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-image-button:hover {
+    background-color: #218838;
+}
+
+.invalid-input {
+    border-color: red;
+}
+
+.image-preview {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.imagenes-inputs {
+    margin-bottom: 15px;
+}
+
+.imagenes-inputs label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.submit-button {
+    background-color: #007BFF;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.cancel-button {
+    background-color: #6c757d;
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}
+
 
 @media (max-width: 600px) {
     .admin-links {

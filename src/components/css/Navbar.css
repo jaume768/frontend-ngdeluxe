@@ -1,7 +1,7 @@
 /* Variables de colores para facilitar la personalización */
 :root {
     --primary-color: #ffffff;
-    --secondary-color: #4a90e2;
+    --secondary-color: #333333;
     --background-color: #f8f9fa;
     --hover-color: #e2e6ea;
     --text-color: #333333;
@@ -177,7 +177,7 @@ body {
 
     .navbar-links .signin-button,
     .navbar-links .logout-button {
-        width: 90%;
+        width: 60%;
         margin: 10px auto;
     }
 

@@ -91,7 +91,7 @@ const BrandsAdmin = () => {
 
     return (
         <div className="admin-section">
-            <h3>Marcas</h3>
+            <h3 className='titulo-panel'>Marcas</h3>
             <form onSubmit={handleSubmit} className="admin-form">
                 <h4>{editingBrand ? 'Editar Marca' : 'Crear Marca'}</h4>
                 {error && <p className="error">{error}</p>}
