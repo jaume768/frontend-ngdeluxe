@@ -77,6 +77,13 @@ const BrandProducts = () => {
         <div className="brand-products-container">
             {brand && (
                 <div className="brand-header">
+                    {brand.categoria && brand.categoria.fotoUrl && (
+                        <img 
+                            src={brand.categoria.fotoUrl} 
+                            alt={`Categoría: ${brand.categoria.nombre}`} 
+                            className="brand-header-image" 
+                        />
+                    )}
                     <h1 className="brand-header-name">{brand.nombre}</h1>
                 </div>
             )}

@@ -1,19 +1,28 @@
+/* src/components/css/BrandProducts.css */
+
+/* Contenedor Principal */
 .brand-products-container {
     padding: 40px 20px;
 }
 
+/* Encabezado de la Marca */
 .brand-header {
     display: flex;
+    flex-direction: column;
+    /* Cambiar a columna para alinear imagen encima del nombre */
     align-items: center;
+    /* Centrar los elementos horizontalmente */
     margin-bottom: 30px;
 }
 
 .brand-header-image {
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    /* Ajusta el tamaño según tus necesidades */
+    height: 100%;
     object-fit: cover;
-    border-radius: 50%;
-    margin-right: 20px;
+    /* Hace la imagen circular */
+    margin-bottom: 20px;
+    /* Espacio entre la imagen y el nombre */
 }
 
 .brand-header-name {
@@ -21,12 +30,14 @@
     color: #333;
 }
 
+/* Lista de Productos */
 .products-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
+/* Contenedor del Producto */
 .product-item-container {
     display: flex;
     flex-direction: column;
@@ -42,16 +53,22 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Producto */
 .product-item {
     display: flex;
-    align-items: flex-start; /* Imagen y contenido alineados arriba */
-    gap: 10px; /* Espacio entre la imagen y el contenido */
-    position: relative; /* Permite posicionar los botones abajo */
+    align-items: flex-start;
+    /* Imagen y contenido alineados arriba */
+    gap: 10px;
+    /* Espacio entre la imagen y el contenido */
+    position: relative;
+    /* Permite posicionar los botones abajo */
 }
 
 .product-image {
-    flex-shrink: 0; /* La imagen no se reduce */
-    width: 100px; /* Ajusta el tamaño de la imagen */
+    flex-shrink: 0;
+    /* La imagen no se reduce */
+    width: 100px;
+    /* Ajusta el tamaño de la imagen */
     height: 100px;
     object-fit: cover;
     border-radius: 8px;
@@ -60,8 +77,10 @@
 .product-content {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Ocupa el espacio restante */
-    justify-content: space-between; /* Nombre arriba y botones abajo */
+    flex-grow: 1;
+    /* Ocupa el espacio restante */
+    justify-content: space-between;
+    /* Nombre arriba y botones abajo */
 }
 
 .product-name {
@@ -72,8 +91,10 @@
 
 .product-actions {
     display: flex;
-    justify-content: flex-end; /* Alinea los botones a la derecha */
-    gap: 10px; /* Espacio entre los botones */
+    justify-content: flex-end;
+    /* Alinea los botones a la derecha */
+    gap: 10px;
+    /* Espacio entre los botones */
 }
 
 .download-button,
@@ -95,7 +116,8 @@
 }
 
 .share-button {
-    background-color: #25D366; /* Color de WhatsApp */
+    background-color: #25D366;
+    /* Color de WhatsApp */
     color: rgb(0, 0, 0);
 }
 
@@ -103,13 +125,15 @@
     background-color: #1ebe57;
 }
 
-/* Nueva regla para eliminar el subrayado de los enlaces */
+/* Eliminar subrayado de los enlaces */
 .product-link {
-    text-decoration: none; /* Elimina el subrayado */
-    color: inherit; /* Hereda el color del texto padre */
+    text-decoration: none;
+    /* Elimina el subrayado */
+    color: inherit;
+    /* Hereda el color del texto padre */
 }
 
-/* Opcional: Asegura que no haya subrayado en hover */
+/* Asegurar que no haya subrayado en hover */
 .product-link:hover {
     text-decoration: none;
     color: inherit;
@@ -118,23 +142,67 @@
 /* Media Query para dispositivos móviles */
 @media (max-width: 600px) {
     .product-item {
-        flex-direction: row; /* Mantén la imagen a la izquierda */
-        align-items: flex-start; /* Alinea elementos arriba */
+        flex-direction: row;
+        /* Mantén la imagen a la izquierda */
+        align-items: flex-start;
+        /* Alinea elementos arriba */
     }
 
     .product-image {
-        width: 80px; /* Reduce ligeramente el tamaño de la imagen */
+        width: 80px;
+        /* Reduce ligeramente el tamaño de la imagen */
         height: 80px;
     }
 
     .product-name {
-        font-size: 16px; /* Reduce el tamaño del texto */
+        font-size: 16px;
+        /* Reduce el tamaño del texto */
         margin-bottom: 10px;
         text-align: start;
     }
 
     .product-actions {
-        justify-content: flex-end; /* Mantén los botones alineados a la derecha */
-        gap: 8px; /* Ajusta el espacio entre los botones */
+        justify-content: flex-end;
+        /* Mantén los botones alineados a la derecha */
+        gap: 8px;
+        /* Ajusta el espacio entre los botones */
+    }
+
+    .brand-header-image {
+        margin-bottom: 15px;
+    }
+
+    .brand-header-name {
+        font-size: 28px;
+        /* Reduce el tamaño del nombre en móvil */
+    }
+}
+
+/* Media Query para dispositivos muy pequeños */
+@media (max-width: 480px) {
+    .product-actions {
+        gap: 6px;
+        /* Espacio aún menor entre botones */
+    }
+
+    .download-button,
+    .share-button {
+        padding: 5px 8px;
+        /* Botones más pequeños */
+        font-size: 14px;
+    }
+
+    .brand-header-image {
+        margin-bottom: 10px;
+    }
+
+    .brand-header-name {
+        font-size: 24px;
+        /* Nombre aún más pequeño */
+    }
+
+    .product-name {
+        font-size: 19px;
+        /* Texto del producto más pequeño */
     }
 }
