@@ -96,13 +96,13 @@ const BrandProducts = () => {
                                                 className="download-button"
                                                 onClick={(event) => handleDownload(product.imagenes[0], product.nombre, event)}
                                             >
-                                                Download
+                                                Descargar
                                             </button>
                                             <button
                                                 className="share-button"
                                                 onClick={(event) => handleShare(product._id, event)}
                                             >
-                                                Share
+                                                Compartir
                                             </button>
                                         </div>
                                     </div>

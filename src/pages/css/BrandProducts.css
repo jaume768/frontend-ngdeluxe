@@ -87,7 +87,7 @@
 
 .download-button {
     background-color: #007BFF;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .download-button:hover {
@@ -96,11 +96,23 @@
 
 .share-button {
     background-color: #25D366; /* Color de WhatsApp */
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .share-button:hover {
     background-color: #1ebe57;
+}
+
+/* Nueva regla para eliminar el subrayado de los enlaces */
+.product-link {
+    text-decoration: none; /* Elimina el subrayado */
+    color: inherit; /* Hereda el color del texto padre */
+}
+
+/* Opcional: Asegura que no haya subrayado en hover */
+.product-link:hover {
+    text-decoration: none;
+    color: inherit;
 }
 
 /* Media Query para dispositivos móviles */
