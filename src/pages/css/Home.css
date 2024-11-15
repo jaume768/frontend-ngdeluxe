@@ -16,7 +16,6 @@
     background-repeat: no-repeat;
 }
 
-
 .carousel-image {
     z-index: 0;
     width: 30%;
@@ -59,4 +58,12 @@
     .carousel-image {
         width: 100%;
     }
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
 }
