@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../services/api';
-import Slider from 'react-slick';
 import './css/ProductDescription.css';
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
 
 const ProductDescription = () => {
     const { id } = useParams();
@@ -44,36 +41,25 @@ const ProductDescription = () => {
         return <div className="error-message">Producto no encontrado.</div>;
     }
 
-    const baseCarouselSettings = {
-        dots: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-    };
-
-    const carouselSettings = {
-        ...baseCarouselSettings,
-        infinite: product.imagenes.length > 1,
-        arrows: product.imagenes.length > 1,
-        dots: product.imagenes.length > 1,
-    };
-
     return (
         <div className="product-description-container">
             {product.imagenes.length > 0 && (
-                <Slider {...carouselSettings} className="product-carousel">
+                <div className="product-carousel">
                     {product.imagenes.map((img, index) => (
-                        <div key={index}>
-                            <img src={img} alt={`${product.nombre} ${index + 1}`} className="carousel-image-description" loading="lazy" />
-                        </div>
+                        <img
+                            key={index}
+                            src={img}
+                            alt={`${product.nombre} ${index + 1}`}
+                            className="carousel-image-description"
+                            loading="lazy"
+                        />
                     ))}
-                </Slider>
+                </div>
             )}
+            <h1 className='nombre-producto'>{product.nombre}</h1>
 
-            <h1 className="product-name">{product.nombre}</h1>
             <h2 className="related-title">Productos Relacionados</h2>
-            <div className="related-products-list">
+            <div className="related-products-slider">
                 {relatedProducts.length > 0 ? (
                     relatedProducts.map(relProd => (
                         <Link to={`/products/${relProd._id}`} key={relProd._id} className="related-product-link">
@@ -93,7 +79,13 @@ const ProductDescription = () => {
             <h2 className="images-column-title">Galería de Imágenes</h2>
             <div className="images-column">
                 {product.imagenes.map((img, index) => (
-                    <img key={index} src={img} alt={`${product.nombre} ${index + 1}`} className="column-image" loading="lazy" />
+                    <img
+                        key={index}
+                        src={img}
+                        alt={`${product.nombre} ${index + 1}`}
+                        className="column-image"
+                        loading="lazy"
+                    />
                 ))}
             </div>
 
