@@ -27,75 +27,102 @@
     gap: 20px;
 }
 
-.product-item {
+.product-item-container {
     display: flex;
-    align-items: center;
-    padding: 10px;
+    flex-direction: column;
     border: 1px solid #ddd;
     border-radius: 8px;
+    padding: 10px;
+    position: relative;
     transition: background-color 0.2s, box-shadow 0.2s;
 }
 
-.product-item:hover {
+.product-item-container:hover {
     background-color: #f9f9f9;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.product-item {
+    display: flex;
+    align-items: flex-start; /* Imagen y contenido alineados arriba */
+    gap: 10px; /* Espacio entre la imagen y el contenido */
+    position: relative; /* Permite posicionar los botones abajo */
+}
+
 .product-image {
-    width: 60px;
-    height: 60px;
+    flex-shrink: 0; /* La imagen no se reduce */
+    width: 100px; /* Ajusta el tamaño de la imagen */
+    height: 100px;
     object-fit: cover;
     border-radius: 8px;
-    margin-right: 20px;
+}
+
+.product-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Ocupa el espacio restante */
+    justify-content: space-between; /* Nombre arriba y botones abajo */
 }
 
 .product-name {
     font-size: 20px;
     color: #333;
+    margin-bottom: 10px;
 }
 
-.product-link {
-    text-decoration: none;
-    color: inherit;
+.product-actions {
+    display: flex;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+    gap: 10px; /* Espacio entre los botones */
 }
 
-.product-link:hover .product-item {
-    background-color: #f1f1f1;
+.download-button,
+.share-button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-.loading,
-.error-message {
-    text-align: center;
-    font-size: 18px;
-    color: #666;
+.download-button {
+    background-color: #007BFF;
+    color: white;
 }
 
+.download-button:hover {
+    background-color: #0056b3;
+}
+
+.share-button {
+    background-color: #25D366; /* Color de WhatsApp */
+    color: white;
+}
+
+.share-button:hover {
+    background-color: #1ebe57;
+}
+
+/* Media Query para dispositivos móviles */
 @media (max-width: 600px) {
-    .brand-header {
-        flex-direction: center;
-        align-items: flex-start;
-    }
-
-    .brand-header-image {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .brand-header-name {
-        font-size: 24px;
-    }
-
     .product-item {
-        align-items: flex-start;
-        gap: 30px;
+        flex-direction: row; /* Mantén la imagen a la izquierda */
+        align-items: flex-start; /* Alinea elementos arriba */
     }
 
     .product-image {
-        margin-right: 0;
-        margin-bottom: 10px;
+        width: 80px; /* Reduce ligeramente el tamaño de la imagen */
+        height: 80px;
     }
 
     .product-name {
-        font-size: 18px;
+        font-size: 16px; /* Reduce el tamaño del texto */
+        margin-bottom: 10px;
+        text-align: start;
+    }
+
+    .product-actions {
+        justify-content: flex-end; /* Mantén los botones alineados a la derecha */
+        gap: 8px; /* Ajusta el espacio entre los botones */
     }
 }

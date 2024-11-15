@@ -1,4 +1,4 @@
 arreglar diseño brandProducts.js
-hacer que cuando le des a un producto salga una pagina de descripcion (primero todas las fotos pero como un carrusel, el nombre del producto, luego 4 producots randoms de la misma cateogria, luego todas las fotos del producto en columna y luego 4 producots randoms de la misma cateogria)
+arreglar diseño productDescripcion.js
 hacer que pueda elegir el orden de las categorias que salen en el home (admin)
 hacer el cargar un numero minimo de productos y que vaya cargando haciendo scroll

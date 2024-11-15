@@ -29,6 +29,42 @@ const BrandProducts = () => {
         fetchBrandAndProducts();
     }, [id]);
 
+    const handleShare = (productId, event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const productLink = `${window.location.origin}/products/${productId}`;
+        const whatsappURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(productLink)}`;
+        window.open(whatsappURL, '_blank');
+    };
+
+    const handleDownload = async (imageUrl, productName, event) => {
+        event.preventDefault();
+        event.stopPropagation();
+    
+        try {
+            const response = await fetch(imageUrl, {
+                mode: 'cors',
+            });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${productName}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error al descargar la imagen:', error);
+            alert('No se pudo descargar la imagen. Inténtalo de nuevo más tarde.');
+        }
+    };
+
     if (loading) {
         return <div className="loading">Cargando...</div>;
     }
@@ -47,14 +83,32 @@ const BrandProducts = () => {
             <div className="products-list">
                 {products.length > 0 ? (
                     products.map(product => (
-                        <Link to={`/products/${product._id}`} key={product._id} className="product-link">
-                            <div className="product-item">
-                                {product.imagenes.length > 0 && (
+                        <div key={product._id} className="product-item-container">
+                            <Link to={`/products/${product._id}`} className="product-link">
+                                <div className="product-item">
                                     <img src={product.imagenes[0]} alt={product.nombre} className="product-image" />
-                                )}
-                                <span className="product-name">{product.nombre}</span>
-                            </div>
-                        </Link>
+
+                                    <div className="product-content">
+                                        <span className="product-name">{product.nombre}</span>
+
+                                        <div className="product-actions">
+                                            <button
+                                                className="download-button"
+                                                onClick={(event) => handleDownload(product.imagenes[0], product.nombre, event)}
+                                            >
+                                                Download
+                                            </button>
+                                            <button
+                                                className="share-button"
+                                                onClick={(event) => handleShare(product._id, event)}
+                                            >
+                                                Share
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
                     ))
                 ) : (
                     <p>No hay productos disponibles para esta marca.</p>

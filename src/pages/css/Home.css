@@ -7,19 +7,20 @@
 
 .home-background {
     position: relative;
-    width: 100%; /* Ancho completo */
-    height: 300px; /* Largo específico */
+    width: 50%;
+    margin: auto;
+    height: 300px;
     background-image: url('https://xcimg.szwego.com/img/3a1a816b/20240326/i1711455352_4987_0.jpg');
-    background-size: cover; /* Ajusta la imagen para cubrir el contenedor */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita repetir la imagen */
-    margin-bottom: 20px; /* Espaciado opcional para separar del resto */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 
 .carousel-image {
     z-index: 0;
     width: 30%;
+    margin-top: 65px;
     margin-left: auto;
     margin-right: auto;
     height: auto;
@@ -46,8 +47,13 @@
 }
 
 @media (max-width: 600px) {
+
+    .home-background {
+        width: 100%;
+    }
+
     .home {
-        padding: 10px;
+        padding: 0;
     }
 
     .carousel-image {

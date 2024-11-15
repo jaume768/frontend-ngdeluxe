@@ -6,15 +6,13 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [usuario, setUsuario] = useState(null);
-    const [cargando, setCargando] = useState(true); // Estado para manejar la carga
+    const [cargando, setCargando] = useState(true);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        console.log('Token encontrado en localStorage:', token);
         if (token) {
             try {
                 const decoded = jwtDecode(token);
-                console.log('Token decodificado:', decoded);
                 const currentTime = Date.now() / 1000;
                 if (decoded.exp < currentTime) {
                     console.error('Token expirado');

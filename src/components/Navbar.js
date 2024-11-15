@@ -1,17 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import './css/Navbar.css';
 
 const Navbar = () => {
-    const { usuario, logout } = useContext(AuthContext);
-    const history = useHistory();
+    const { usuario } = useContext(AuthContext);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-    const handleLogout = () => {
-        logout();
-        history.push('/');
-    };
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -25,7 +19,6 @@ const Navbar = () => {
             <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
                 {usuario ? (
                     <>
-                        <span className="greeting">Hola, {usuario.nombre}</span>
                         {usuario.rol === 'admin' && <Link to="/admin">Administración</Link>}
                         <Link to="/perfil">Perfil</Link>
                     </>

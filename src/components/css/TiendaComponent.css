@@ -1,11 +1,10 @@
-/* TumblerCard.css */
 .tumbler-card {
     position: absolute;
     bottom: 0;
-    width: 90%;
+    width: 80%;
     height: 70px;
-    left: 0.4%;
-    background: rgba(255, 255, 255, 0.9);
+    left: 5%;
+    background: rgb(255, 255, 255);
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;

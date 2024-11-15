@@ -68,7 +68,6 @@ const Home = () => {
             </Slider>
             {categorias.map((categoria) => {
                 const marcasDeCategoria = marcas.filter(brand => brand.categoria._id === categoria._id);
-                console.log(`Marcas para la categoría ${categoria.nombre}:`, marcasDeCategoria);
                 return (
                     <Category
                         key={categoria._id}

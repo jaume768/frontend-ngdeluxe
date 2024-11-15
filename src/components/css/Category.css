@@ -13,7 +13,7 @@
     height: auto;
     border-radius: 8px;
     object-fit: cover;
-    margin: 0 auto; /* Centra la imagen */
+    margin-top: 10px;
 }
 
 .brands-grid {

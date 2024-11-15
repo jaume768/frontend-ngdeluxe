@@ -29,8 +29,8 @@
 }
 
 .carousel-image-description {
-    width: 100%;
-    height: 500px;
+    width: 80%;
+    margin: auto;
     object-fit: cover;
 }
 
@@ -113,8 +113,17 @@
 
 @media (max-width: 768px) {
 
+    .product-description-container {
+        padding: 0;
+    }
+
+    .images-column{
+        gap: 0;
+        margin-bottom: 0;
+    }
+
     .carousel-image-description {
-        height: 100%;
+        height: 80%;
     }
 
     .related-products-list {
