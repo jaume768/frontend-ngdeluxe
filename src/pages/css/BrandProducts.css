@@ -18,7 +18,7 @@
 .brand-header-image {
     width: 100%;
     /* Ajusta el tamaño según tus necesidades */
-    height: 100%;
+    height: 200px; /* Puedes ajustar esta altura */
     object-fit: cover;
     /* Hace la imagen circular */
     margin-bottom: 20px;
@@ -108,7 +108,7 @@
 
 .download-button {
     background-color: #007BFF;
-    color: rgb(0, 0, 0);
+    color: #fff;
 }
 
 .download-button:hover {
@@ -118,7 +118,7 @@
 .share-button {
     background-color: #25D366;
     /* Color de WhatsApp */
-    color: rgb(0, 0, 0);
+    color: #fff;
 }
 
 .share-button:hover {
@@ -137,6 +137,37 @@
 .product-link:hover {
     text-decoration: none;
     color: inherit;
+}
+
+/* Mensaje de Carga */
+.loading {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    margin: 20px 0;
+}
+
+/* Spinner Loader */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #09f;
+    animation: spin 1s ease infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Mensaje de Finalización */
+.end-message {
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+    margin: 20px 0;
 }
 
 /* Media Query para dispositivos móviles */
@@ -169,6 +200,7 @@
     }
 
     .brand-header-image {
+        height: 150px; /* Ajusta la altura en móviles */
         margin-bottom: 15px;
     }
 
@@ -187,12 +219,13 @@
 
     .download-button,
     .share-button {
-        padding: 10px 12px;
+        padding: 8px;
         /* Botones más pequeños */
         font-size: 14px;
     }
 
     .brand-header-image {
+        height: 120px; /* Ajusta la altura en móviles muy pequeños */
         margin-bottom: 10px;
     }
 
