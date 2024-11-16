@@ -1,3 +1,2 @@
-hacer que pueda elegir el orden de las categorias que salen en el home (admin)
 hacer el cargar un numero minimo de productos y que vaya cargando haciendo scroll
 hacer footer sticky en el home que ponga "categorias" y salga un desplegable

@@ -26,7 +26,11 @@ const CategoriesAdmin = () => {
         e.preventDefault();
         if (editingCategory) {
             try {
-                await api.put(`/categories/${editingCategory._id}`, { nombre, fotoUrl });
+                await api.put(`/categories/${editingCategory._id}`, { 
+                    nombre, 
+                    fotoUrl, 
+                    order: editingCategory.order 
+                });
                 setEditingCategory(null);
                 setNombre('');
                 setFotoUrl('');
@@ -73,6 +77,34 @@ const CategoriesAdmin = () => {
         setError('');
     };
 
+    const moveCategoryUp = async (index) => {
+        if (index === 0) return;
+        const categoryToMove = categorias[index];
+        const categoryAbove = categorias[index - 1];
+
+        try {
+            await api.put(`/categories/${categoryToMove._id}`, { order: categoryAbove.order });
+            await api.put(`/categories/${categoryAbove._id}`, { order: categoryToMove.order });
+            fetchCategories();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const moveCategoryDown = async (index) => {
+        if (index === categorias.length - 1) return;
+        const categoryToMove = categorias[index];
+        const categoryBelow = categorias[index + 1];
+
+        try {
+            await api.put(`/categories/${categoryToMove._id}`, { order: categoryBelow.order });
+            await api.put(`/categories/${categoryBelow._id}`, { order: categoryToMove.order });
+            fetchCategories();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div className="admin-section">
             <h3 className='titulo-panel'>Categorías</h3>
@@ -100,22 +132,44 @@ const CategoriesAdmin = () => {
             <table>
                 <thead>
                     <tr>
+                        <th>Orden</th>
                         <th>Nombre</th>
                         <th>Foto URL</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {categorias.map(cat => (
-                        <tr key={cat._id}>
-                            <td>{cat.nombre}</td>
-                            <td><a href={cat.fotoUrl} target="_blank" rel="noopener noreferrer">Ver Imagen</a></td>
-                            <td>
-                                <button onClick={() => handleEdit(cat)}>Editar</button>
-                                <button onClick={() => handleDelete(cat._id)}>Eliminar</button>
-                            </td>
-                        </tr>
-                    ))}
+                    {categorias
+                        .sort((a, b) => a.order - b.order)
+                        .map((cat, index) => (
+                            <tr key={cat._id}>
+                                <td>{cat.order}</td>
+                                <td>{cat.nombre}</td>
+                                <td>
+                                    <a href={cat.fotoUrl} target="_blank" rel="noopener noreferrer">
+                                        Ver Imagen
+                                    </a>
+                                </td>
+                                <td className='actiones-botones'>
+                                    <button onClick={() => handleEdit(cat)}>Editar</button>
+                                    <button onClick={() => handleDelete(cat._id)}>Eliminar</button>
+                                    <button 
+                                        onClick={() => moveCategoryUp(index)} 
+                                        disabled={index === 0}
+                                        title="Subir categoría"
+                                    >
+                                        Subir
+                                    </button>
+                                    <button 
+                                        onClick={() => moveCategoryDown(index)} 
+                                        disabled={index === categorias.length - 1}
+                                        title="Bajar categoría"
+                                    >
+                                        Bajar
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                 </tbody>
             </table>
         </div>

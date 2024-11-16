@@ -168,7 +168,7 @@
     }
 
     .related-products-slider {
-        height: 190px;
+        height: 200px;
         margin-bottom: 70px;
         gap: 15px;
     }
@@ -178,6 +178,7 @@
     }
 
     .related-product-image {
+        margin: auto;
         width: 180px;
         height: 180px;
     }

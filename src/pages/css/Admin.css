@@ -6,6 +6,13 @@
     display: flex;
     gap: 10px;
 }
+
+.actiones-botones{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
 .margen-products {
     display: flex;
     gap: 10px;

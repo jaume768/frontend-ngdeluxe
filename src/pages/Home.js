@@ -3,7 +3,7 @@ import api from '../services/api';
 import Category from '../components/Category';
 import TiendaComponent from '../components/TiendaComponent';
 import './css/Home.css';
-import Slider from "react-slick"; // Importa Slider de react-slick
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -41,7 +41,7 @@ const Home = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 5000, // 5 segundos
+        autoplaySpeed: 5000,
         arrows: true,
         pauseOnHover: true,
     };
@@ -66,16 +66,18 @@ const Home = () => {
                     </div>
                 ))}
             </Slider>
-            {categorias.map((categoria) => {
-                const marcasDeCategoria = marcas.filter(brand => brand.categoria._id === categoria._id);
-                return (
-                    <Category
-                        key={categoria._id}
-                        category={categoria}
-                        brands={marcasDeCategoria}
-                    />
-                );
-            })}
+            {categorias
+                .sort((a, b) => a.order - b.order)
+                .map((categoria) => {
+                    const marcasDeCategoria = marcas.filter(brand => brand.categoria._id === categoria._id);
+                    return (
+                        <Category
+                            key={categoria._id}
+                            category={categoria}
+                            brands={marcasDeCategoria}
+                        />
+                    );
+                })}
         </div>
     );
 };
