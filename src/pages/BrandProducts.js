@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { FaDownload, FaShareAlt } from 'react-icons/fa';
 import api from '../services/api';
 import './css/BrandProducts.css';
 
@@ -102,14 +103,16 @@ const BrandProducts = () => {
                                             <button
                                                 className="download-button"
                                                 onClick={(event) => handleDownload(product.imagenes[0], product.nombre, event)}
+                                                aria-label="Descargar imagen"
                                             >
-                                                Descargar
+                                                <FaDownload />
                                             </button>
                                             <button
                                                 className="share-button"
                                                 onClick={(event) => handleShare(product._id, event)}
+                                                aria-label="Compartir producto"
                                             >
-                                                Compartir
+                                                <FaShareAlt />
                                             </button>
                                         </div>
                                     </div>
