@@ -1,13 +1,14 @@
+/* DropdownPanel.css */
 .dropdown-panel {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    top: 0; /* Cubre toda la pantalla */
+    top: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Comienza desde abajo */
-    z-index: 999; /* Debajo del footer */
+    justify-content: flex-end;
+    z-index: 999;
 }
 
 .dropdown-overlay {
@@ -16,17 +17,19 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .dropdown-content {
     background-color: #fff;
-    max-height: 80%; /* Para poder hacer scroll */
-    overflow-y: auto;
+    max-height: 80%;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     position: relative;
     z-index: 1000;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .close-button {
@@ -41,50 +44,64 @@
 
 .dropdown-inner-content {
     display: flex;
-    flex-direction: row;
-    padding: 20px;
+    flex: 1;
+    overflow: hidden;
 }
 
 .categories-list {
-    flex: 1;
+    width: 30%;
+    background-color: #f7f7f7;
     overflow-y: auto;
     border-right: 1px solid #ccc;
 }
 
 .category-item {
+    padding: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.category-item.active {
+    background-color: #fff;
+    font-weight: bold;
+}
+
+.brands-grid-dropdown {
+    width: 70%;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
-}
-
-.categories-brands {
-    flex: 2;
     overflow-y: auto;
-    padding-left: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 60px;
 }
 
-.category-brands-section {
-    margin-bottom: 20px;
+.brand-item-dropdown {
+    text-align: center;
 }
 
-.category-brands-section h3 {
-    margin-bottom: 10px;
+.brand-item-dropdown img {
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+    object-fit: cover;
+    margin: auto;
+    border-radius: 5px;
 }
 
-.category-brands-section ul {
-    list-style-type: none;
-    padding: 0;
+.brand-item-dropdown span {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #333;
 }
 
-.category-brands-section li {
-    padding: 5px 0;
-}
-
-.category-brands-section li a {
+.brand-item-dropdown a {
     text-decoration: none;
-    color: #007BFF;
+    color: inherit;
 }
 
-.category-brands-section li a:hover {
+.brand-item-dropdown a:hover {
     text-decoration: underline;
 }
 
@@ -95,11 +112,15 @@
     }
 
     .categories-list {
+        width: 100%;
+        flex: 0 0 auto;
         border-right: none;
         border-bottom: 1px solid #ccc;
     }
 
-    .categories-brands {
-        padding-left: 0;
+    .brands-grid-dropdown {
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 10px;
     }
 }
