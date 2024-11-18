@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import UsersAdmin from '../components/UsersAdmin';
 import CategoriesAdmin from '../components/CategoriesAdmin';
