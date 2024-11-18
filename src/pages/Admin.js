@@ -8,16 +8,15 @@ import './css/Admin.css';
 
 const Admin = () => {
     const { path, url } = useRouteMatch();
-    const [activeSection, setActiveSection] = useState('users');
 
     return (
         <div className="admin-container">
             <h2>Panel de Administración</h2>
             <div className="admin-links">
-                <Link to={`${url}/users`} onClick={() => setActiveSection('users')}>Usuarios</Link>
-                <Link to={`${url}/categories`} onClick={() => setActiveSection('categories')}>Categorías</Link>
-                <Link to={`${url}/brands`} onClick={() => setActiveSection('brands')}>Marcas</Link>
-                <Link to={`${url}/products`} onClick={() => setActiveSection('products')}>Productos</Link>
+                <Link to={`${url}/users`}>Usuarios</Link>
+                <Link to={`${url}/categories`}>Categorías</Link>
+                <Link to={`${url}/brands`}>Marcas</Link>
+                <Link to={`${url}/products`}>Productos</Link>
             </div>
 
             <Switch>
