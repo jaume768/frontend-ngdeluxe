@@ -1,0 +1,23 @@
+.categories-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #000; /* Fondo negro */
+    text-align: center;
+    padding: 8px 0;
+    z-index: 1000; /* Asegura que esté encima de otros elementos */
+}
+
+.categories-button {
+    font-size: 14px;
+    background-color: #fff; /* Fondo blanco */
+    color: #000; /* Texto negro */
+    border: none;
+    padding: 8px 13px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.categories-button:hover {
+    background-color: #f0f0f0;
+}

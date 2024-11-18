@@ -3,6 +3,7 @@
     box-sizing: border-box;
     width: 100%;
     overflow: hidden;
+    padding-bottom: 60px; /* Altura del footer para evitar que lo cubra */
 }
 
 .home-background {
@@ -46,13 +47,13 @@
 }
 
 @media (max-width: 600px) {
-
     .home-background {
         width: 100%;
     }
 
     .home {
         padding: 0;
+        padding-bottom: 60px; /* Asegurar padding en móvil */
     }
 
     .carousel-image {

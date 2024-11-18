@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 import Category from '../components/Category';
 import TiendaComponent from '../components/TiendaComponent';
+import CategoriesFooter from '../components/CategoriesFooter'; // Importar el nuevo componente
+import DropdownPanel from '../components/DropdownPanel';
 import './css/Home.css';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -10,6 +12,7 @@ import "slick-carousel/slick/slick-theme.css";
 const Home = () => {
     const [categorias, setCategorias] = useState([]);
     const [marcas, setMarcas] = useState([]);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -78,6 +81,14 @@ const Home = () => {
                         />
                     );
                 })}
+            <CategoriesFooter onToggle={() => setIsDropdownOpen(!isDropdownOpen)} />
+            {isDropdownOpen && (
+                <DropdownPanel 
+                    categories={categorias}
+                    brands={marcas}
+                    onClose={() => setIsDropdownOpen(false)}
+                />
+            )}
         </div>
     );
 };
