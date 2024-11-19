@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Select from 'react-select'; // Importa react-select
 import api from '../services/api';
 import './../pages/css/Admin.css';
 import { toast } from 'react-toastify';
@@ -9,7 +10,7 @@ const ProductsAdmin = () => {
     const [marcas, setMarcas] = useState([]);
     const [nombre, setNombre] = useState('');
     const [imagenes, setImagenes] = useState(['']); // Inicializar con un campo de imagen
-    const [marca, setMarca] = useState('');
+    const [marca, setMarca] = useState(null); // Cambia a objeto
     const [editingProduct, setEditingProduct] = useState(null);
     const [error, setError] = useState('');
 
@@ -84,11 +85,11 @@ const ProductsAdmin = () => {
 
         if (editingProduct) {
             try {
-                await api.put(`/products/${editingProduct._id}`, { nombre, imagenes: imagenesArray, marca });
+                await api.put(`/products/${editingProduct._id}`, { nombre, imagenes: imagenesArray, marca: marca.value });
                 setEditingProduct(null);
                 setNombre('');
                 setImagenes(['']);
-                setMarca('');
+                setMarca(null);
                 setError('');
                 fetchProducts();
                 toast.success('Producto actualizado exitosamente.');
@@ -99,10 +100,10 @@ const ProductsAdmin = () => {
             }
         } else {
             try {
-                await api.post('/products', { nombre, imagenes: imagenesArray, marca });
+                await api.post('/products', { nombre, imagenes: imagenesArray, marca: marca.value });
                 setNombre('');
                 setImagenes(['']);
-                setMarca('');
+                setMarca(null);
                 setError('');
                 fetchProducts();
                 toast.success('Producto creado exitosamente.');
@@ -118,7 +119,7 @@ const ProductsAdmin = () => {
         setEditingProduct(product);
         setNombre(product.nombre);
         setImagenes(product.imagenes.length > 0 ? product.imagenes : ['']);
-        setMarca(product.marca._id);
+        setMarca(product.marca ? { value: product.marca._id, label: product.marca.nombre } : null);
         setError('');
     };
 
@@ -140,9 +141,15 @@ const ProductsAdmin = () => {
         setEditingProduct(null);
         setNombre('');
         setImagenes(['']);
-        setMarca('');
+        setMarca(null);
         setError('');
     };
+
+    // Prepara las opciones para react-select
+    const brandOptions = marcas.map(br => ({
+        value: br._id,
+        label: br.nombre
+    }));
 
     return (
         <div className="admin-section">
@@ -195,12 +202,14 @@ const ProductsAdmin = () => {
                         <FaPlus /> Agregar Imagen
                     </button>
                 </div>
-                <select value={marca} onChange={(e) => setMarca(e.target.value)} required>
-                    <option value="">Selecciona una Marca</option>
-                    {marcas.map(br => (
-                        <option key={br._id} value={br._id}>{br.nombre}</option>
-                    ))}
-                </select>
+                <Select
+                    value={marca}
+                    onChange={setMarca}
+                    options={brandOptions}
+                    placeholder="Selecciona una Marca"
+                    isSearchable
+                    required
+                />
                 <button type="submit" className="submit-button">{editingProduct ? 'Actualizar' : 'Crear'}</button>
                 {editingProduct && <button type="button" onClick={handleCancel} className="cancel-button">Cancelar</button>}
             </form>

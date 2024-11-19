@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Select from 'react-select'; // Importa react-select
 import api from '../services/api';
 import './../pages/css/Admin.css';
 
@@ -7,7 +8,7 @@ const BrandsAdmin = () => {
     const [categorias, setCategorias] = useState([]);
     const [nombre, setNombre] = useState('');
     const [fotoUrl, setFotoUrl] = useState('');
-    const [categoria, setCategoria] = useState('');
+    const [categoria, setCategoria] = useState(null); // Cambia a objeto
     const [editingBrand, setEditingBrand] = useState(null);
     const [error, setError] = useState('');
 
@@ -38,11 +39,11 @@ const BrandsAdmin = () => {
         e.preventDefault();
         if (editingBrand) {
             try {
-                await api.put(`/brands/${editingBrand._id}`, { nombre, fotoUrl, categoria });
+                await api.put(`/brands/${editingBrand._id}`, { nombre, fotoUrl, categoria: categoria.value });
                 setEditingBrand(null);
                 setNombre('');
                 setFotoUrl('');
-                setCategoria('');
+                setCategoria(null);
                 fetchBrands();
             } catch (error) {
                 console.error(error);
@@ -50,10 +51,10 @@ const BrandsAdmin = () => {
             }
         } else {
             try {
-                await api.post('/brands', { nombre, fotoUrl, categoria });
+                await api.post('/brands', { nombre, fotoUrl, categoria: categoria.value });
                 setNombre('');
                 setFotoUrl('');
-                setCategoria('');
+                setCategoria(null);
                 fetchBrands();
             } catch (error) {
                 console.error(error);
@@ -66,7 +67,7 @@ const BrandsAdmin = () => {
         setEditingBrand(brand);
         setNombre(brand.nombre);
         setFotoUrl(brand.fotoUrl);
-        setCategoria(brand.categoria ? brand.categoria._id : '');
+        setCategoria(brand.categoria ? { value: brand.categoria._id, label: brand.categoria.nombre } : null);
         setError('');
     };
 
@@ -85,9 +86,15 @@ const BrandsAdmin = () => {
         setEditingBrand(null);
         setNombre('');
         setFotoUrl('');
-        setCategoria('');
+        setCategoria(null);
         setError('');
     };
+
+    // Prepara las opciones para react-select
+    const categoryOptions = categorias.map(cat => ({
+        value: cat._id,
+        label: cat.nombre
+    }));
 
     return (
         <div className="admin-section">
@@ -109,12 +116,14 @@ const BrandsAdmin = () => {
                     onChange={(e) => setFotoUrl(e.target.value)}
                     required
                 />
-                <select value={categoria} onChange={(e) => setCategoria(e.target.value)} required>
-                    <option value="">Selecciona una Categoría</option>
-                    {categorias.map(cat => (
-                        <option key={cat._id} value={cat._id}>{cat.nombre}</option>
-                    ))}
-                </select>
+                <Select
+                    value={categoria}
+                    onChange={setCategoria}
+                    options={categoryOptions}
+                    placeholder="Selecciona una Categoría"
+                    isSearchable
+                    required
+                />
                 <button type="submit">{editingBrand ? 'Actualizar' : 'Crear'}</button>
                 {editingBrand && <button type="button" onClick={handleCancel}>Cancelar</button>}
             </form>
