@@ -223,7 +223,7 @@ const ProductsAdmin = () => {
                                     <a key={index} href={img} target="_blank" rel="noopener noreferrer">Imagen {index + 1}</a>
                                 ))}
                             </td>
-                            <td>{prod.marca.nombre}</td>
+                            <td>{prod.marca?.nombre  || 'Sin marca'}</td>
                             <td className='urls-imagenes'>
                                 <button onClick={() => handleEdit(prod)} className="edit-button">Editar</button>
                                 <button onClick={() => handleDelete(prod._id)} className="delete-button">Eliminar</button>
