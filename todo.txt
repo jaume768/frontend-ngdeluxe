@@ -1,0 +1,1 @@
+hacer footer sticky en el home que ponga "categorias" y salga un desplegable
