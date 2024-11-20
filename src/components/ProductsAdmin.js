@@ -9,6 +9,7 @@ const ProductsAdmin = () => {
     const [productos, setProductos] = useState([]);
     const [marcas, setMarcas] = useState([]);
     const [nombre, setNombre] = useState('');
+    const [descripcion, setDescripcion] = useState(''); // Nuevo estado para descripción
     const [imagenes, setImagenes] = useState(['']); // Inicializar con un campo de imagen
     const [marca, setMarca] = useState(null); // Cambia a objeto
     const [editingProduct, setEditingProduct] = useState(null);
@@ -85,9 +86,15 @@ const ProductsAdmin = () => {
 
         if (editingProduct) {
             try {
-                await api.put(`/products/${editingProduct._id}`, { nombre, imagenes: imagenesArray, marca: marca.value });
+                await api.put(`/products/${editingProduct._id}`, { 
+                    nombre, 
+                    descripcion, // Incluir descripción
+                    imagenes: imagenesArray, 
+                    marca: marca.value 
+                });
                 setEditingProduct(null);
                 setNombre('');
+                setDescripcion(''); // Resetear descripción
                 setImagenes(['']);
                 setMarca(null);
                 setError('');
@@ -100,8 +107,14 @@ const ProductsAdmin = () => {
             }
         } else {
             try {
-                await api.post('/products', { nombre, imagenes: imagenesArray, marca: marca.value });
+                await api.post('/products', { 
+                    nombre, 
+                    descripcion, // Incluir descripción
+                    imagenes: imagenesArray, 
+                    marca: marca.value 
+                });
                 setNombre('');
+                setDescripcion(''); // Resetear descripción
                 setImagenes(['']);
                 setMarca(null);
                 setError('');
@@ -118,6 +131,7 @@ const ProductsAdmin = () => {
     const handleEdit = (product) => {
         setEditingProduct(product);
         setNombre(product.nombre);
+        setDescripcion(product.descripcion || ''); // Establecer descripción
         setImagenes(product.imagenes.length > 0 ? product.imagenes : ['']);
         setMarca(product.marca ? { value: product.marca._id, label: product.marca.nombre } : null);
         setError('');
@@ -140,6 +154,7 @@ const ProductsAdmin = () => {
     const handleCancel = () => {
         setEditingProduct(null);
         setNombre('');
+        setDescripcion(''); // Resetear descripción
         setImagenes(['']);
         setMarca(null);
         setError('');
@@ -163,6 +178,12 @@ const ProductsAdmin = () => {
                     value={nombre}
                     onChange={(e) => setNombre(e.target.value)}
                     required
+                />
+                <textarea
+                    placeholder="Descripción del Producto"
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                    className="descripcion-input"
                 />
                 <div className="imagenes-inputs">
                     <label>URLs de Imágenes:</label>
@@ -218,6 +239,7 @@ const ProductsAdmin = () => {
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Descripción</th>
                         <th>Imágenes</th>
                         <th>Marca</th>
                         <th>Acciones</th>
@@ -227,6 +249,7 @@ const ProductsAdmin = () => {
                     {productos.map(prod => (
                         <tr key={prod._id}>
                             <td>{prod.nombre}</td>
+                            <td>{prod.descripcion || 'Sin descripción'}</td>
                             <td className='urls-imagenes'>
                                 {prod.imagenes.map((img, index) => (
                                     <a key={index} href={img} target="_blank" rel="noopener noreferrer">Imagen {index + 1}</a>
@@ -243,7 +266,6 @@ const ProductsAdmin = () => {
             </table>
         </div>
     );
-
 };
 
 export default ProductsAdmin;
