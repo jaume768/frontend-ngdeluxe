@@ -145,11 +145,27 @@ const ProductsAdmin = () => {
         setError('');
     };
 
-    // Prepara las opciones para react-select
+    // Prepara las opciones para react-select incluyendo la categoría
     const brandOptions = marcas.map(br => ({
         value: br._id,
-        label: br.nombre
+        label: `${br.nombre} (${br.categoria?.nombre || 'Sin categoría'})`
     }));
+
+    // (Opcional) Usar formatOptionLabel para una mejor presentación
+    /*
+    const brandOptions = marcas.map(br => ({
+        value: br._id,
+        label: br.nombre,
+        categoria: br.categoria?.nombre || 'Sin categoría'
+    }));
+
+    const formatOptionLabel = ({ label, categoria }) => (
+        <div>
+            <span style={{ fontWeight: 'bold' }}>{label}</span>
+            <span style={{ marginLeft: 5, color: '#666' }}>({categoria})</span>
+        </div>
+    );
+    */
 
     return (
         <div className="admin-section">
@@ -209,6 +225,7 @@ const ProductsAdmin = () => {
                     placeholder="Selecciona una Marca"
                     isSearchable
                     required
+                    // formatOptionLabel={formatOptionLabel} // Descomenta esta línea si usas formatOptionLabel
                 />
                 <button type="submit" className="submit-button">{editingProduct ? 'Actualizar' : 'Crear'}</button>
                 {editingProduct && <button type="button" onClick={handleCancel} className="cancel-button">Cancelar</button>}
@@ -232,7 +249,7 @@ const ProductsAdmin = () => {
                                     <a key={index} href={img} target="_blank" rel="noopener noreferrer">Imagen {index + 1}</a>
                                 ))}
                             </td>
-                            <td>{prod.marca?.nombre  || 'Sin marca'}</td>
+                            <td>{prod.marca?.nombre || 'Sin marca'}</td>
                             <td className='urls-imagenes'>
                                 <button onClick={() => handleEdit(prod)} className="edit-button">Editar</button>
                                 <button onClick={() => handleDelete(prod._id)} className="delete-button">Eliminar</button>
@@ -243,7 +260,6 @@ const ProductsAdmin = () => {
             </table>
         </div>
     );
-
 };
 
 export default ProductsAdmin;
