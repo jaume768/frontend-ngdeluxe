@@ -12,19 +12,28 @@ const BrandProducts = () => {
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [isFetching, setIsFetching] = useState(false);
     const observer = useRef();
 
+    // Reiniciar estado cuando cambia la marca
+    useEffect(() => {
+        setProducts([]);
+        setPage(1);
+        setHasMore(true);
+    }, [id]);
+
     const lastProductElementRef = useCallback(node => {
-        if (loading) return;
+        if (loading || isFetching || !hasMore) return;
         if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore) {
+            if (entries[0].isIntersecting) {
                 setPage(prevPage => prevPage + 1);
             }
         });
         if (node) observer.current.observe(node);
-    }, [loading, hasMore]);
+    }, [loading, isFetching, hasMore]);
 
+    // Obtener la información de la marca
     useEffect(() => {
         const fetchBrandAndInitialProducts = async () => {
             try {
@@ -40,28 +49,40 @@ const BrandProducts = () => {
         fetchBrandAndInitialProducts();
     }, [id]);
 
+    // Obtener los productos paginados
     useEffect(() => {
         const fetchProducts = async () => {
+            if (isFetching) return;
+            setIsFetching(true);
             setLoading(true);
             try {
                 const res = await api.get(`/products/brand/${id}`, {
                     params: { page, limit: 10 },
                 });
                 const fetchedProducts = res.data.products;
-                setProducts(prevProducts => [...prevProducts, ...fetchedProducts]);
+
+                // Filtrar duplicados
+                setProducts(prevProducts => {
+                    const newProducts = fetchedProducts.filter(
+                        fetchedProduct => !prevProducts.some(product => product._id === fetchedProduct._id)
+                    );
+                    return [...prevProducts, ...newProducts];
+                });
+
                 setHasMore(page < res.data.totalPages);
             } catch (err) {
                 console.error('Error al obtener productos:', err);
                 setError('No se pudieron cargar los productos.');
             } finally {
                 setLoading(false);
+                setIsFetching(false);
             }
         };
 
-        if (brand) {
+        if (brand && hasMore) {
             fetchProducts();
         }
-    }, [id, page, brand]);
+    }, [id, page, brand, isFetching, hasMore]);
 
     const handleShare = (productId, event) => {
         event.preventDefault();
@@ -197,7 +218,6 @@ const BrandProducts = () => {
             {!hasMore && <div className="end-message">No hay más productos para mostrar.</div>}
         </div>
     );
-
 };
 
 export default BrandProducts;
