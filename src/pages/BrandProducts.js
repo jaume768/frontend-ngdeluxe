@@ -8,11 +8,10 @@ const BrandProducts = () => {
     const { id } = useParams();
     const [products, setProducts] = useState([]);
     const [brand, setBrand] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false); // Inicialmente false
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const [isFetching, setIsFetching] = useState(false);
     const observer = useRef();
 
     // Reiniciar estado cuando cambia la marca
@@ -23,66 +22,57 @@ const BrandProducts = () => {
     }, [id]);
 
     const lastProductElementRef = useCallback(node => {
-        if (loading || isFetching || !hasMore) return;
+        if (loading) return;
         if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
+            if (entries[0].isIntersecting && hasMore) {
+                console.log('Intersecting with last item, loading more...');
                 setPage(prevPage => prevPage + 1);
             }
         });
         if (node) observer.current.observe(node);
-    }, [loading, isFetching, hasMore]);
+    }, [loading, hasMore]);
 
     // Obtener la información de la marca
     useEffect(() => {
-        const fetchBrandAndInitialProducts = async () => {
+        const fetchBrand = async () => {
             try {
                 const brandRes = await api.get(`/brands/${id}`);
                 setBrand(brandRes.data);
             } catch (err) {
                 console.error('Error al obtener datos de la marca:', err);
                 setError('No se pudo cargar la marca.');
-                setLoading(false);
             }
         };
 
-        fetchBrandAndInitialProducts();
+        fetchBrand();
     }, [id]);
 
     // Obtener los productos paginados
     useEffect(() => {
         const fetchProducts = async () => {
-            if (isFetching) return;
-            setIsFetching(true);
             setLoading(true);
             try {
+                console.log(`Fetching products for page ${page}`);
                 const res = await api.get(`/products/brand/${id}`, {
                     params: { page, limit: 10 },
                 });
                 const fetchedProducts = res.data.products;
 
-                // Filtrar duplicados
-                setProducts(prevProducts => {
-                    const newProducts = fetchedProducts.filter(
-                        fetchedProduct => !prevProducts.some(product => product._id === fetchedProduct._id)
-                    );
-                    return [...prevProducts, ...newProducts];
-                });
-
-                setHasMore(page < res.data.totalPages);
+                setProducts(prevProducts => [...prevProducts, ...fetchedProducts]);
+                const totalPages = res.data.totalPages;
+                console.log(`Total pages: ${totalPages}, Current page: ${page}`);
+                setHasMore(page < totalPages);
             } catch (err) {
                 console.error('Error al obtener productos:', err);
                 setError('No se pudieron cargar los productos.');
             } finally {
                 setLoading(false);
-                setIsFetching(false);
             }
         };
 
-        if (brand && hasMore) {
-            fetchProducts();
-        }
-    }, [id, page, brand, isFetching, hasMore]);
+        fetchProducts();
+    }, [id, page]);
 
     const handleShare = (productId, event) => {
         event.preventDefault();
@@ -140,73 +130,41 @@ const BrandProducts = () => {
             )}
             <div className="products-list">
                 {products.map((product, index) => {
-                    if (products.length === index + 1) {
-                        return (
-                            <div
-                                key={product._id}
-                                className="product-item-container"
-                                ref={lastProductElementRef}
-                            >
-                                <Link to={`/products/${product._id}`} className="product-link">
-                                    <div className="product-item">
-                                        <img src={product.imagenes[0]} alt={product.nombre} className="product-image" />
+                    const isLastItem = index === products.length - 1;
+                    return (
+                        <div
+                            key={product._id}
+                            className="product-item-container"
+                            ref={isLastItem ? lastProductElementRef : null}
+                        >
+                            <Link to={`/products/${product._id}`} className="product-link">
+                                <div className="product-item">
+                                    <img src={product.imagenes[0]} alt={product.nombre} className="product-image" />
 
-                                        <div className="product-content">
-                                            <span className="product-name">{product.nombre}</span>
+                                    <div className="product-content">
+                                        <span className="product-name">{product.nombre}</span>
 
-                                            <div className="product-actions">
-                                                <button
-                                                    className="download-button"
-                                                    onClick={(event) => handleDownload(product.imagenes[0], product.nombre, event)}
-                                                    aria-label="Descargar imagen"
-                                                >
-                                                    <FaDownload />
-                                                </button>
-                                                <button
-                                                    className="share-button"
-                                                    onClick={(event) => handleShare(product._id, event)}
-                                                    aria-label="Compartir producto"
-                                                >
-                                                    <FaShareAlt />
-                                                </button>
-                                            </div>
+                                        <div className="product-actions">
+                                            <button
+                                                className="download-button"
+                                                onClick={(event) => handleDownload(product.imagenes[0], product.nombre, event)}
+                                                aria-label="Descargar imagen"
+                                            >
+                                                <FaDownload />
+                                            </button>
+                                            <button
+                                                className="share-button"
+                                                onClick={(event) => handleShare(product._id, event)}
+                                                aria-label="Compartir producto"
+                                            >
+                                                <FaShareAlt />
+                                            </button>
                                         </div>
                                     </div>
-                                </Link>
-                            </div>
-                        );
-                    } else {
-                        return (
-                            <div key={product._id} className="product-item-container">
-                                <Link to={`/products/${product._id}`} className="product-link">
-                                    <div className="product-item">
-                                        <img src={product.imagenes[0]} alt={product.nombre} className="product-image" />
-
-                                        <div className="product-content">
-                                            <span className="product-name">{product.nombre}</span>
-
-                                            <div className="product-actions">
-                                                <button
-                                                    className="download-button"
-                                                    onClick={(event) => handleDownload(product.imagenes[0], product.nombre, event)}
-                                                    aria-label="Descargar imagen"
-                                                >
-                                                    <FaDownload />
-                                                </button>
-                                                <button
-                                                    className="share-button"
-                                                    onClick={(event) => handleShare(product._id, event)}
-                                                    aria-label="Compartir producto"
-                                                >
-                                                    <FaShareAlt />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-                        );
-                    }
+                                </div>
+                            </Link>
+                        </div>
+                    );
                 })}
             </div>
             {loading && (
@@ -215,7 +173,7 @@ const BrandProducts = () => {
                 </div>
             )}
 
-            {!hasMore && <div className="end-message">No hay más productos para mostrar.</div>}
+            {!hasMore && !loading && <div className="end-message">No hay más productos para mostrar.</div>}
         </div>
     );
 };

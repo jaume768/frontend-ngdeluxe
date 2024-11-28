@@ -6,4 +6,4 @@ services:
     ports:
       - '3000:80'
     environment:
-      - REACT_APP_API_URL=https://api-ngdeluxe-production.up.railway.app/api
+      - REACT_APP_API_URL=http://localhost:5000/api
