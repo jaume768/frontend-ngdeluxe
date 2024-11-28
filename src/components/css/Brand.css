@@ -1,27 +1,44 @@
+/* Estilos para el contenedor de la marca */
+.brand-container {
+    width: 100%;
+}
+
+/* Estilos para la tarjeta de la marca */
 .brand-card {
     text-align: center;
     padding: 10px;
-    background-color: transparent; /* Elimina el fondo para un diseño limpio */
+    background-color: transparent;
     transition: transform 0.2s;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra horizontalmente los elementos */
+    align-items: center;
+    height: 180px;
+    /* Altura fija para todas las tarjetas */
+    box-sizing: border-box;
 }
 
+/* Estilos para la imagen de la marca */
 .brand-card img {
-    width: 100%; /* Hace que la imagen ocupe todo el ancho del contenedor */
-    max-width: 100px; /* Establece un ancho máximo para la imagen */
-    height: auto; /* Mantiene la proporción de la imagen */
-    object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+    width: 100%;
+    max-width: 100px;
+    /* Ancho máximo para las imágenes */
+    height: 100px;
+    /* Altura fija para las imágenes */
+    object-fit: contain;
+    /* Ajusta la imagen dentro del contenedor sin deformarla */
+    margin-bottom: 10px;
 }
 
+/* Estilos para el nombre de la marca */
 .brand-name {
-    margin-top: 0; /* Elimina margen superior si es necesario */
+    margin: 0;
     font-weight: bold;
     color: #555;
-    width: 60px;
-    text-align: center; /* Centra el texto */
-    font-size: 1em; /* Ajusta el tamaño de fuente según necesidad */
+    text-align: center;
+    font-size: 1em;
+    max-width: 100px;
+    /* Ancho máximo para controlar textos largos */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
