@@ -92,8 +92,8 @@
 }
 
 .related-product-image {
-    width: 250px;
-    height: 250px;
+    width: 230px;
+    height: 230px;
     object-fit: cover;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -144,7 +144,7 @@
     }
 
     .related-product-image {
-        width: 200px;
+        width: 180px;
         height: 200px;
     }
 
@@ -179,8 +179,8 @@
 
     .related-product-image {
         margin: auto;
-        width: 180px;
-        height: 180px;
+        width: 160px;
+        height: 160px;
     }
 
     .related-product-name {
@@ -211,8 +211,8 @@
     }
 
     .related-product-image {
-        width: 150px;
-        height: 150px;
+        width: 130px;
+        height: 130px;
     }
 
     .related-product-name {

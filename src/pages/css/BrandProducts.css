@@ -9,20 +9,15 @@
 .brand-header {
     display: flex;
     flex-direction: column;
-    /* Cambiar a columna para alinear imagen encima del nombre */
     align-items: center;
-    /* Centrar los elementos horizontalmente */
     margin-bottom: 30px;
 }
 
 .brand-header-image {
     width: 100%;
-    /* Ajusta el tamaño según tus necesidades */
-    height: 200px; /* Puedes ajustar esta altura */
+    height: 200px;
     object-fit: cover;
-    /* Hace la imagen circular */
     margin-bottom: 20px;
-    /* Espacio entre la imagen y el nombre */
 }
 
 .brand-header-name {
@@ -32,8 +27,8 @@
 
 /* Lista de Productos */
 .products-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
@@ -46,6 +41,7 @@
     padding: 10px;
     position: relative;
     transition: background-color 0.2s, box-shadow 0.2s;
+    background-color: #fff;
 }
 
 .product-item-container:hover {
@@ -56,20 +52,15 @@
 /* Producto */
 .product-item {
     display: flex;
-    align-items: flex-start;
-    /* Imagen y contenido alineados arriba */
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
-    /* Espacio entre la imagen y el contenido */
-    position: relative;
-    /* Permite posicionar los botones abajo */
+    width: 100%;
 }
 
 .product-image {
-    flex-shrink: 0;
-    /* La imagen no se reduce */
-    width: 100px;
-    /* Ajusta el tamaño de la imagen */
-    height: 100px;
+    width: 100%;
+    height: 200px;
     object-fit: cover;
     border-radius: 8px;
 }
@@ -77,24 +68,21 @@
 .product-content {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    /* Ocupa el espacio restante */
+    width: 100%;
     justify-content: space-between;
-    /* Nombre arriba y botones abajo */
 }
 
 .product-name {
     font-size: 20px;
     color: #333;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .product-actions {
     display: flex;
-    justify-content: flex-end;
-    /* Alinea los botones a la derecha */
+    justify-content: center;
     gap: 10px;
-    /* Espacio entre los botones */
 }
 
 .download-button,
@@ -117,7 +105,6 @@
 
 .share-button {
     background-color: #25D366;
-    /* Color de WhatsApp */
     color: #fff;
 }
 
@@ -128,12 +115,9 @@
 /* Eliminar subrayado de los enlaces */
 .product-link {
     text-decoration: none;
-    /* Elimina el subrayado */
     color: inherit;
-    /* Hereda el color del texto padre */
 }
 
-/* Asegurar que no haya subrayado en hover */
 .product-link:hover {
     text-decoration: none;
     color: inherit;
@@ -170,72 +154,59 @@
     margin: 20px 0;
 }
 
-/* Media Query para dispositivos móviles */
-@media (max-width: 600px) {
-    .product-item {
-        flex-direction: row;
-        /* Mantén la imagen a la izquierda */
-        align-items: flex-start;
-        /* Alinea elementos arriba */
+/* Media Query para tablets y dispositivos medianos */
+@media (max-width: 992px) {
+    .products-list {
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .product-image {
-        width: 80px;
-        /* Reduce ligeramente el tamaño de la imagen */
-        height: 80px;
+        height: 180px;
+    }
+}
+
+/* Media Query para dispositivos móviles */
+@media (max-width: 600px) {
+    .products-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .product-image {
+        height: 150px;
     }
 
     .product-name {
-        font-size: 16px;
-        /* Reduce el tamaño del texto */
-        margin-bottom: 10px;
-        text-align: start;
-    }
-
-    .product-actions {
-        justify-content: flex-end;
-        /* Mantén los botones alineados a la derecha */
-        gap: 8px;
-        /* Ajusta el espacio entre los botones */
+        font-size: 18px;
     }
 
     .brand-header-image {
-        height: 150px; /* Ajusta la altura en móviles */
+        height: 150px;
         margin-bottom: 15px;
     }
 
     .brand-header-name {
         font-size: 28px;
-        /* Reduce el tamaño del nombre en móvil */
     }
 }
 
 /* Media Query para dispositivos muy pequeños */
 @media (max-width: 480px) {
-    .product-actions {
-        gap: 6px;
-        /* Espacio aún menor entre botones */
-    }
-
     .download-button,
     .share-button {
         padding: 8px;
-        /* Botones más pequeños */
         font-size: 14px;
     }
 
     .brand-header-image {
-        height: 120px; /* Ajusta la altura en móviles muy pequeños */
+        height: 120px;
         margin-bottom: 10px;
     }
 
     .brand-header-name {
         font-size: 24px;
-        /* Nombre aún más pequeño */
     }
 
     .product-name {
         font-size: 19px;
-        /* Texto del producto más pequeño */
     }
 }
