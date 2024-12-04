@@ -15,17 +15,33 @@ const BrandProducts = () => {
     const observer = useRef();
     const lastNodeRef = useRef();
 
-    // Reiniciar estado cuando cambia la marca
+    // Referencias para hasMore y loading
+    const hasMoreRef = useRef(hasMore);
+    const loadingRef = useRef(loading);
+
+    // Actualizar referencias cuando cambian hasMore o loading
+    useEffect(() => {
+        hasMoreRef.current = hasMore;
+        loadingRef.current = loading;
+    }, [hasMore, loading]);
+
+    // Reiniciar estado y desconectar observador cuando cambia la marca
     useEffect(() => {
         setProducts([]);
         setPage(1);
         setHasMore(true);
+
+        // Desconectar observador del último nodo observado
+        if (observer.current && lastNodeRef.current) {
+            observer.current.unobserve(lastNodeRef.current);
+            lastNodeRef.current = null;
+        }
     }, [id]);
 
     // Crear el observador una sola vez
     useEffect(() => {
         observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore && !loading) {
+            if (entries[0].isIntersecting && hasMoreRef.current && !loadingRef.current) {
                 console.log('Intersecting with last item, loading more...');
                 setPage(prevPage => prevPage + 1);
             }
@@ -34,7 +50,7 @@ const BrandProducts = () => {
         return () => {
             if (observer.current) observer.current.disconnect();
         };
-    }, [hasMore, loading]);
+    }, []); // Arreglo de dependencias vacío
 
     const lastProductElementRef = useCallback(node => {
         if (observer.current) {
