@@ -89,7 +89,9 @@ const BrandProducts = () => {
                     params: { page, limit: 10 },
                 });
                 const fetchedProducts = res.data.products;
-
+    
+                console.log('Fetched products:', fetchedProducts);
+    
                 setProducts(prevProducts => [...prevProducts, ...fetchedProducts]);
                 const totalPages = res.data.totalPages;
                 console.log(`Total pages: ${totalPages}, Current page: ${page}`);
@@ -101,9 +103,10 @@ const BrandProducts = () => {
                 setLoading(false);
             }
         };
-
+    
         fetchProducts();
     }, [id, page]);
+    
 
     const handleShare = (productId, event) => {
         event.preventDefault();
