@@ -11,7 +11,7 @@ const BrandProducts = () => {
     const [loading, setLoading] = useState(false); // Inicialmente false
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
+    const [hasMore, setHasMore] = useState(false); // Inicialmente false
     const observer = useRef();
     const lastNodeRef = useRef();
 
@@ -29,7 +29,7 @@ const BrandProducts = () => {
     useEffect(() => {
         setProducts([]);
         setPage(1);
-        setHasMore(true);
+        setHasMore(false);
 
         // Desconectar observador del último nodo observado
         if (observer.current && lastNodeRef.current) {
@@ -40,12 +40,19 @@ const BrandProducts = () => {
 
     // Crear el observador una sola vez
     useEffect(() => {
-        observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMoreRef.current && !loadingRef.current) {
-                console.log('Intersecting with last item, loading more...');
-                setPage(prevPage => prevPage + 1);
+        observer.current = new IntersectionObserver(
+            entries => {
+                if (entries[0].isIntersecting && hasMoreRef.current && !loadingRef.current) {
+                    console.log('Intersecting with last item, loading more...');
+                    setPage(prevPage => prevPage + 1);
+                }
+            },
+            {
+                root: null,
+                rootMargin: '200px', // Ajusta según tus necesidades
+                threshold: 0,
             }
-        });
+        );
 
         return () => {
             if (observer.current) observer.current.disconnect();
@@ -89,10 +96,17 @@ const BrandProducts = () => {
                     params: { page, limit: 10 },
                 });
                 const fetchedProducts = res.data.products;
-    
+
                 console.log('Fetched products:', fetchedProducts);
-    
-                setProducts(prevProducts => [...prevProducts, ...fetchedProducts]);
+
+                // Filtrar productos duplicados antes de actualizar el estado
+                setProducts(prevProducts => {
+                    const newProducts = fetchedProducts.filter(
+                        newProduct => !prevProducts.some(prevProduct => prevProduct._id === newProduct._id)
+                    );
+                    return [...prevProducts, ...newProducts];
+                });
+
                 const totalPages = res.data.totalPages;
                 console.log(`Total pages: ${totalPages}, Current page: ${page}`);
                 setHasMore(page < totalPages);
@@ -103,10 +117,11 @@ const BrandProducts = () => {
                 setLoading(false);
             }
         };
-    
+
         fetchProducts();
     }, [id, page]);
-    
+
+    // Resto del código permanece igual...
 
     const handleShare = (productId, event) => {
         event.preventDefault();
@@ -181,7 +196,9 @@ const BrandProducts = () => {
                                         <div className="product-actions">
                                             <button
                                                 className="download-button"
-                                                onClick={(event) => handleDownload(product.imagenes[0], product.nombre, event)}
+                                                onClick={(event) =>
+                                                    handleDownload(product.imagenes[0], product.nombre, event)
+                                                }
                                                 aria-label="Descargar imagen"
                                             >
                                                 <FaDownload />
