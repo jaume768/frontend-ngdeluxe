@@ -13,6 +13,7 @@ const BrandProducts = () => {
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const observer = useRef();
+    const lastNodeRef = useRef();
 
     // Reiniciar estado cuando cambia la marca
     useEffect(() => {
@@ -21,17 +22,31 @@ const BrandProducts = () => {
         setHasMore(true);
     }, [id]);
 
-    const lastProductElementRef = useCallback(node => {
-        if (loading) return;
-        if (observer.current) observer.current.disconnect();
+    // Crear el observador una sola vez
+    useEffect(() => {
         observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore) {
+            if (entries[0].isIntersecting && hasMore && !loading) {
                 console.log('Intersecting with last item, loading more...');
                 setPage(prevPage => prevPage + 1);
             }
         });
-        if (node) observer.current.observe(node);
-    }, [loading, hasMore]);
+
+        return () => {
+            if (observer.current) observer.current.disconnect();
+        };
+    }, [hasMore, loading]);
+
+    const lastProductElementRef = useCallback(node => {
+        if (observer.current) {
+            if (lastNodeRef.current) {
+                observer.current.unobserve(lastNodeRef.current);
+            }
+            if (node) {
+                observer.current.observe(node);
+                lastNodeRef.current = node;
+            }
+        }
+    }, []);
 
     // Obtener la información de la marca
     useEffect(() => {
