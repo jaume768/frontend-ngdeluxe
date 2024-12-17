@@ -1,3 +1,5 @@
+// BrandProducts.jsx
+
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaDownload, FaShareAlt } from 'react-icons/fa';
@@ -8,28 +10,32 @@ const BrandProducts = () => {
     const { id } = useParams();
     const [products, setProducts] = useState([]);
     const [brand, setBrand] = useState(null);
-    const [loading, setLoading] = useState(false); // Inicialmente false
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(false); // Inicialmente false
+    const [hasMore, setHasMore] = useState(false);
     const observer = useRef();
     const lastNodeRef = useRef();
 
-    // Referencias para hasMore y loading
+    const [restoreScroll, setRestoreScroll] = useState(false);
+    const [savedScroll, setSavedScroll] = useState(0);
+    const [savedPage, setSavedPage] = useState(1);
+
+    const [pagesLoaded, setPagesLoaded] = useState(0);
+
     const hasMoreRef = useRef(hasMore);
     const loadingRef = useRef(loading);
 
-    // Actualizar referencias cuando cambian hasMore o loading
     useEffect(() => {
         hasMoreRef.current = hasMore;
         loadingRef.current = loading;
     }, [hasMore, loading]);
 
-    // Reiniciar estado y desconectar observador cuando cambia la marca
     useEffect(() => {
         setProducts([]);
         setPage(1);
         setHasMore(false);
+        setPagesLoaded(0); // Reiniciar páginas cargadas
 
         // Desconectar observador del último nodo observado
         if (observer.current && lastNodeRef.current) {
@@ -57,7 +63,7 @@ const BrandProducts = () => {
         return () => {
             if (observer.current) observer.current.disconnect();
         };
-    }, []); // Arreglo de dependencias vacío
+    }, []);
 
     const lastProductElementRef = useCallback(node => {
         if (observer.current) {
@@ -71,7 +77,6 @@ const BrandProducts = () => {
         }
     }, []);
 
-    // Obtener la información de la marca
     useEffect(() => {
         const fetchBrand = async () => {
             try {
@@ -86,7 +91,6 @@ const BrandProducts = () => {
         fetchBrand();
     }, [id]);
 
-    // Obtener los productos paginados
     useEffect(() => {
         const fetchProducts = async () => {
             setLoading(true);
@@ -99,7 +103,6 @@ const BrandProducts = () => {
 
                 console.log('Fetched products:', fetchedProducts);
 
-                // Filtrar productos duplicados antes de actualizar el estado
                 setProducts(prevProducts => {
                     const newProducts = fetchedProducts.filter(
                         newProduct => !prevProducts.some(prevProduct => prevProduct._id === newProduct._id)
@@ -115,13 +118,43 @@ const BrandProducts = () => {
                 setError('No se pudieron cargar los productos.');
             } finally {
                 setLoading(false);
+                setPagesLoaded(prev => prev + 1);
             }
         };
 
         fetchProducts();
     }, [id, page]);
 
-    // Resto del código permanece igual...
+    useEffect(() => {
+        const storedScroll = sessionStorage.getItem('brandProductsScroll');
+        const storedPage = parseInt(sessionStorage.getItem('brandProductsPage'), 10);
+        if (storedScroll !== null && !isNaN(storedPage)) {
+            setSavedScroll(parseInt(storedScroll, 10));
+            setSavedPage(storedPage);
+            setRestoreScroll(true);
+            sessionStorage.removeItem('brandProductsScroll');
+            sessionStorage.removeItem('brandProductsPage');
+        }
+    }, [id]);
+
+    useEffect(() => {
+        if (restoreScroll) {
+            if (pagesLoaded >= savedPage) {
+                window.scrollTo(0, savedScroll);
+                setRestoreScroll(false);
+            } else {
+                if (hasMore && !loading) {
+                    setPage(prevPage => prevPage + 1);
+                }
+            }
+        }
+    }, [restoreScroll, pagesLoaded, savedPage, savedScroll, hasMore, loading]);
+
+    // Función para guardar la posición del scroll y la página actual
+    const saveScrollPosition = () => {
+        sessionStorage.setItem('brandProductsScroll', window.scrollY);
+        sessionStorage.setItem('brandProductsPage', page);
+    };
 
     const handleShare = (productId, event) => {
         event.preventDefault();
@@ -186,7 +219,11 @@ const BrandProducts = () => {
                             className="product-item-container"
                             ref={isLastItem ? lastProductElementRef : null}
                         >
-                            <Link to={`/products/${product._id}`} className="product-link">
+                            <Link 
+                                to={`/products/${product._id}`} 
+                                className="product-link" 
+                                onClick={saveScrollPosition} // Añadido onClick
+                            >
                                 <div className="product-item">
                                     <img src={product.imagenes[0]} alt={product.nombre} className="product-image" />
 

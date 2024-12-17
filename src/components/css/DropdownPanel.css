@@ -1,4 +1,5 @@
 /* DropdownPanel.css */
+
 .dropdown-panel {
     position: fixed;
     bottom: 0;
@@ -23,7 +24,7 @@
 .dropdown-content {
     background-color: #fff;
     max-height: 80%;
-    overflow: hidden;
+    overflow-y: auto; /* Cambiado de overflow: hidden a auto para permitir el scroll */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -105,22 +106,58 @@
     text-decoration: underline;
 }
 
-/* Ajustes para dispositivos móviles */
+/* Nuevos estilos para móvil */
 @media (max-width: 600px) {
+    .dropdown-content {
+        max-height: 100%; /* Ocupa toda la pantalla en móvil */
+        border-radius: 0; /* Sin bordes redondeados */
+        margin-bottom: 40px;
+    }
+
     .dropdown-inner-content {
-        flex-direction: column;
+        flex-direction: column; /* Apilar contenido verticalmente */
     }
 
     .categories-list {
-        width: 100%;
-        flex: 0 0 auto;
+        width: 100%; /* Ancho completo */
         border-right: none;
         border-bottom: 1px solid #ccc;
     }
 
     .brands-grid-dropdown {
-        width: 100%;
-        grid-template-columns: repeat(3, 1fr);
-        padding: 10px;
+        display: none; /* Ocultar cuadrícula de marcas en móvil */
+    }
+
+    .brands-list-mobile {
+        padding-left: 15px;
+        background-color: #f7f7f7;
+    }
+
+    .brand-item-mobile {
+        padding: 10px 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .brand-item-mobile a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .brand-item-mobile img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+
+    .brand-item-mobile span {
+        font-size: 1em;
+    }
+
+    .category-item.active {
+        background-color: #e0e0e0; /* Diferente color para categorías activas en móvil */
     }
 }
