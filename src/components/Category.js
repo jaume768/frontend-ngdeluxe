@@ -2,7 +2,7 @@ import React from 'react';
 import Brand from './Brand.js';
 import './css/Category.css';
 
-const Category = ({ category, brands }) => {
+const Category = ({ category, brands, onBrandClick }) => { // Aceptar la prop onBrandClick
     return (
         <div className="category-section">
             <img 
@@ -12,7 +12,11 @@ const Category = ({ category, brands }) => {
             />
             <div className="brands-grid">
                 {brands.map((brand) => (
-                    <Brand key={brand._id} brand={brand} />
+                    <Brand 
+                        key={brand._id} 
+                        brand={brand} 
+                        onClick={onBrandClick} // Pasar la función al componente Brand
+                    />
                 ))}
             </div>
         </div>

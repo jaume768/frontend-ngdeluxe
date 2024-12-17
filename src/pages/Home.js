@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+// Home.jsx
+
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import api from '../services/api';
 import Category from '../components/Category';
 import TiendaComponent from '../components/TiendaComponent';
-import CategoriesFooter from '../components/CategoriesFooter'; // Importar el nuevo componente
+import CategoriesFooter from '../components/CategoriesFooter';
 import DropdownPanel from '../components/DropdownPanel';
 import './css/Home.css';
 import Slider from "react-slick";
@@ -13,6 +15,7 @@ const Home = () => {
     const [categorias, setCategorias] = useState([]);
     const [marcas, setMarcas] = useState([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [dataLoaded, setDataLoaded] = useState(false); // Estado para rastrear la carga de datos
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -33,9 +36,31 @@ const Home = () => {
             }
         };
 
-        fetchCategories();
-        fetchBrands();
+        const fetchData = async () => {
+            await Promise.all([fetchCategories(), fetchBrands()]);
+            setDataLoaded(true); // Marcar los datos como cargados
+        };
+
+        fetchData();
     }, []);
+
+    // Función para guardar la posición del scroll
+    const saveHomeScrollPosition = () => {
+        console.log('Guardando posición del scroll:', window.scrollY);
+        sessionStorage.setItem('homeScroll', window.scrollY);
+    };
+
+    // Restaurar la posición del scroll después de que los datos se hayan cargado
+    useLayoutEffect(() => {
+        if (dataLoaded) {
+            const savedScroll = sessionStorage.getItem('homeScroll');
+            if (savedScroll !== null) {
+                console.log('Restaurando scroll a:', savedScroll);
+                window.scrollTo(0, parseInt(savedScroll, 10));
+                sessionStorage.removeItem('homeScroll'); // Opcional: limpiar el almacenamiento
+            }
+        }
+    }, [dataLoaded]);
 
     const settings = {
         dots: true,
@@ -65,7 +90,12 @@ const Home = () => {
             <Slider {...settings}>
                 {images.map((image, index) => (
                     <div key={index}>
-                        <img src={image} alt={`Slide ${index + 1}`} className="carousel-image" />
+                        <img 
+                            src={image} 
+                            alt={`Slide ${index + 1}`} 
+                            className="carousel-image" 
+                            loading="lazy" // Mejora la carga de imágenes
+                        />
                     </div>
                 ))}
             </Slider>
@@ -78,6 +108,7 @@ const Home = () => {
                             key={categoria._id}
                             category={categoria}
                             brands={marcasDeCategoria}
+                            onBrandClick={saveHomeScrollPosition} // Pasar la función como prop
                         />
                     );
                 })}
